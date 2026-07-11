@@ -1,0 +1,36 @@
+# Node
+node_modules/
+
+# Build
+dist/
+.next/
+out/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/settings.json
+
+# Turbo
+.turbo/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Coverage
+coverage/
+
+# Misc
+*.tmp

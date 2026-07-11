@@ -1,0 +1,20 @@
+{
+  "name": "reviva-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Front Desk Employee Platform for Med Spas",
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "format": "turbo format"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}
