@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen bg-background text-foreground">
       <Container className="flex min-h-screen flex-col items-center justify-center py-20 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-400">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
           Powered by REVOS
         </p>
 
@@ -13,11 +13,11 @@ export default function Home() {
           Reviva
         </h1>
 
-        <p className="mt-6 text-xl text-slate-300 sm:text-2xl">
+        <p className="mt-6 text-xl text-muted sm:text-2xl">
           The AI Front Desk Employee for Med Spas
         </p>
 
-        <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400">
+        <p className="mt-6 max-w-2xl text-base leading-7 text-muted">
           Reviva helps Med Spas answer patient questions, capture leads, and
           create appointments around the clock.
         </p>
@@ -27,7 +27,7 @@ export default function Home() {
           <Button variant="secondary">View Architecture</Button>
         </div>
 
-        <p className="mt-10 text-sm text-slate-500">
+        <p className="mt-10 text-sm text-subtle">
           Version 0.1.0 · Under active development
         </p>
       </Container>

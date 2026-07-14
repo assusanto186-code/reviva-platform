@@ -10,9 +10,9 @@ type ButtonProps = {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-emerald-400 text-slate-950 hover:bg-emerald-300 focus-visible:outline-emerald-400",
+    "bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-primary",
   secondary:
-    "border border-slate-700 bg-transparent text-white hover:bg-slate-900 focus-visible:outline-slate-400",
+    "border border-border bg-transparent text-foreground hover:bg-surface focus-visible:outline-muted",
 };
 
 export function Button({
@@ -28,7 +28,7 @@ export function Button({
       className={[
         "inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3",
         "text-sm font-semibold transition-colors",
-        "focus-visible:outline-2 focus-visible:outline-offset-",
+        "focus-visible:outline-2 focus-visible:outline-offset-2",
         "disabled:cursor-not-allowed disabled:opacity-50",
         variantClasses[variant],
         className,
