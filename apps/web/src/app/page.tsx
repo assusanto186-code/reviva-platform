@@ -1,13 +1,14 @@
 import { Container } from "@/components/layout/container";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Container className="flex min-h-screen flex-col items-center justify-center py-20 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+        <Badge className="mb-6 uppercase tracking-[0.2em]" variant="primary">
           Powered by REVOS
-        </p>
+        </Badge>
 
         <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
           Reviva

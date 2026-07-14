@@ -24,9 +24,10 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
+      data-slot="button"
       type={type}
       className={[
-        "inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3",
+        "inline-flex min-h-11 items-center justify-center rounded-md px-6 py-3",
         "text-sm font-semibold transition-colors",
         "focus-visible:outline-2 focus-visible:outline-offset-2",
         "disabled:cursor-not-allowed disabled:opacity-50",
