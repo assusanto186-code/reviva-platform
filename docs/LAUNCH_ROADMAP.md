@@ -132,10 +132,25 @@ end-to-end evidence in `LAUNCH_READINESS_CHECKLIST.md`.
 - automated tests for tenant isolation, lifecycle history, permissions, and
   tenant-scoped audit events.
 
+### Accepted architecture decisions
+
+- Supabase Auth with membership-derived server-side `TenantContext`;
+- Supabase PostgreSQL behind a vendor-independent adapter;
+- Supabase Storage for approved tenant files only;
+- Vercel serverless runtime using the PostgreSQL transaction pooler;
+- forced RLS, restricted runtime roles, composite tenant constraints, and
+  transaction-local tenant context;
+- transactional knowledge lifecycle, append-only audit, and optimistic locking
+  for stale operator writes.
+
+Evidence: `docs/adr/ADR-001-authentication.md`,
+`docs/adr/ADR-002-production-database.md`, and
+`docs/adr/ADR-003-tenant-isolation.md`.
+
 ### Remaining production work
 
-- authentication and membership-derived tenant context;
-- database decision, migrations, and transactional repository adapter;
+- authentication implementation and membership-derived tenant context;
+- database migrations and transactional repository adapter;
 - shared isolation tests against production persistence, cache, and search;
 - operator onboarding, knowledge ingestion, review, publish, rollback, and
   freshness workflows;

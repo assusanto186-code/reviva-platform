@@ -2,7 +2,7 @@
 
 Version: 1.0
 
-Status: Domain Foundation Implemented
+Status: Domain and Architecture Foundation Implemented
 
 Owner: Reviva Engineering
 
@@ -79,10 +79,21 @@ A production persistence adapter must:
 - support retention, export, deletion, backup, and recovery requirements;
 - expose health, latency, error, and audit-delivery monitoring.
 
+## Accepted Production Architecture
+
+- Supabase Auth behind a Reviva-owned authentication boundary;
+- Supabase PostgreSQL behind a separate production repository adapter;
+- server-derived membership and role resolution for `TenantContext`;
+- restricted runtime database role, forced RLS, and transaction-local context;
+- transactional lifecycle writes and append-only audit persistence;
+- additive expected-version command envelopes for optimistic concurrency.
+
+See `docs/adr` for the complete decisions and rejected alternatives.
+
 ## Not Yet Implemented
 
-- authentication provider and session validation;
-- production database and schema migrations;
+- authentication session and membership resolution;
+- production database schema migrations and adapter;
 - encrypted credential or secret storage;
 - organization onboarding and membership invitation workflows;
 - knowledge ingestion, review, and operator interface;
@@ -92,8 +103,8 @@ A production persistence adapter must:
 
 ## Next REV-009 Slice
 
-1. Write the authentication and persistence decision record.
-2. Select the first-customer database and migration approach.
+1. Create versioned PostgreSQL migrations and restricted database roles.
+2. Implement a tenant-bound transaction coordinator.
 3. Implement a production repository adapter behind the current interfaces.
 4. Run shared tenant-isolation tests against that adapter.
 5. Add operator workflows for source creation, drafting, review, publish, and

@@ -43,7 +43,9 @@ Current evidence count:
 The previously uncommitted feature work was reviewed and protected in coherent
 Conventional Commit units. The next implementation gate is completion of the
 authentication, production database, and tenant-isolation architecture decision
-records. Production persistence must not begin before those decisions exist.
+records. Those decisions are now accepted; production persistence may proceed
+only through the adapter, migration, transaction, and isolation boundaries they
+define.
 
 ## Completed Work
 
@@ -135,6 +137,17 @@ Domain foundation implemented:
 - tenant-scoped audit contracts and local test adapters;
 - five passing domain isolation, lifecycle, permission, and audit tests.
 
+Architecture decisions completed:
+
+- Supabase Auth selected behind a Reviva-owned infrastructure boundary;
+- Supabase PostgreSQL selected behind existing domain repository interfaces;
+- Supabase Storage approved only for permitted tenant files;
+- membership-derived `TenantContext`, forced RLS, restricted credentials,
+  transactions, optimistic locking, migration, backup, recovery, and audit
+  strategies documented in `docs/adr`;
+- `ARCHITECTURE.md`, `DATABASE.md`, `API_SPEC.md`, `ROADMAP.md`, and
+  `SECURITY.md` establish the engineering documentation baseline.
+
 Remaining production work:
 
 - tenant, organization, location, membership, and role models;
@@ -195,7 +208,7 @@ Remaining production work:
 
 ## Immediate Next Slice
 
-The completed slice is the smallest coherent part of REV-009:
+Completed REV-009 slices:
 
 - create a dependency-free domain package;
 - model tenants, organizations, locations, memberships, roles, knowledge
@@ -204,10 +217,12 @@ The completed slice is the smallest coherent part of REV-009:
 - provide a test repository that refuses cross-tenant reads and writes;
 - test draft, publish, and rollback state transitions;
 - document what remains before adding a real database or authentication system.
+- accept the authentication, database, tenant-isolation, migration, backup,
+  recovery, credential, and audit architecture decisions.
 
 This slice creates verified business boundaries without pretending that an
 in-memory test repository is production persistence.
 
-The next REV-009 slice is an authentication and persistence decision record,
-followed by a transactional production repository adapter and shared isolation
-tests.
+The next REV-009 slice is versioned PostgreSQL migrations, a restricted runtime
+role, a tenant-bound transaction coordinator, a production repository adapter,
+and shared isolation tests against disposable PostgreSQL.
