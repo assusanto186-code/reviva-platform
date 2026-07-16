@@ -1,4 +1,8 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from "react";
 
 type ButtonVariant = "primary" | "secondary";
 
@@ -8,12 +12,29 @@ type ButtonProps = {
   className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
+type ButtonLinkProps = {
+  children: ReactNode;
+  variant?: ButtonVariant;
+  className?: string;
+} & AnchorHTMLAttributes<HTMLAnchorElement>;
+
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-primary",
   secondary:
     "border border-border bg-transparent text-foreground hover:bg-surface focus-visible:outline-muted",
 };
+
+function getButtonClasses(variant: ButtonVariant, className: string) {
+  return [
+    "inline-flex min-h-11 items-center justify-center rounded-md px-6 py-3",
+    "text-sm font-semibold transition-colors",
+    "focus-visible:outline-2 focus-visible:outline-offset-2",
+    "disabled:cursor-not-allowed disabled:opacity-50",
+    variantClasses[variant],
+    className,
+  ].join(" ");
+}
 
 export function Button({
   children,
@@ -26,17 +47,27 @@ export function Button({
     <button
       data-slot="button"
       type={type}
-      className={[
-        "inline-flex min-h-11 items-center justify-center rounded-md px-6 py-3",
-        "text-sm font-semibold transition-colors",
-        "focus-visible:outline-2 focus-visible:outline-offset-2",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        variantClasses[variant],
-        className,
-      ].join(" ")}
+      className={getButtonClasses(variant, className)}
       {...props}
     >
       {children}
     </button>
+  );
+}
+
+export function ButtonLink({
+  children,
+  variant = "primary",
+  className = "",
+  ...props
+}: ButtonLinkProps) {
+  return (
+    <a
+      data-slot="button-link"
+      className={getButtonClasses(variant, className)}
+      {...props}
+    >
+      {children}
+    </a>
   );
 }
