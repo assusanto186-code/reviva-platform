@@ -2,11 +2,11 @@
 
 Version: 1.0
 
-Status: Architecture Approved, Implementation Pending
+Status: Persistence and Hosted Development Verification Complete
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-16
+Last reviewed: 2026-07-17
 
 ## Approved Platform
 
@@ -18,7 +18,7 @@ The authoritative decisions are
 [`ADR-002`](./adr/ADR-002-production-database.md) and
 [`ADR-003`](./adr/ADR-003-tenant-isolation.md).
 
-## Planned Core Schema
+## Core Schema
 
 | Table | Ownership | Purpose |
 | --- | --- | --- |
@@ -31,6 +31,10 @@ The authoritative decisions are
 | `knowledge_entries` | tenant | Stable knowledge key and active version |
 | `knowledge_versions` | tenant | Immutable content revision and provenance |
 | `audit_events` | tenant | Append-only business and security evidence |
+
+The schema is represented by ordered migrations in `supabase/migrations`.
+All three migrations are applied to the linked hosted Supabase Development
+project, local and remote histories match, and linked database lint passes.
 
 All tenant tables use UUID identifiers, `tenant_id not null`, tenant-aware
 foreign keys, tenant-leading indexes, timestamps, and explicit status checks.
@@ -91,3 +95,20 @@ production voice recordings.
 - failed transactions persist no partial business or audit state;
 - backup restore completes within recorded objectives;
 - query plans and connection use are measured before pilot.
+
+## Implementation
+
+- `@reviva/postgres` implements the existing tenant, knowledge, and audit
+  repository contracts.
+- Postgres.js is configured with prepared statements disabled for Supavisor
+  transaction mode.
+- A transaction coordinator binds repositories and context to one real
+  database transaction and invalidates the session afterward.
+- `saveEntryWithExpectedVersion` provides additive optimistic locking without
+  changing domain interfaces.
+- `docs/DATABASE_SETUP.md` defines local and hosted Development workflows.
+- The 13-test hosted integration suite passed three times on 2026-07-17 using unique
+  fake identifiers and verified cleanup.
+
+Database lint, reset, and integration evidence remain blocked until a real
+Development target is available.

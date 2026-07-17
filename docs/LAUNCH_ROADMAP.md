@@ -150,14 +150,16 @@ Evidence: `docs/adr/ADR-001-authentication.md`,
 ### Remaining production work
 
 - authentication implementation and membership-derived tenant context;
-- database migrations and transactional repository adapter;
-- shared isolation tests against production persistence, cache, and search;
+- authentication integration and operator-facing authorization workflows;
+- tenant isolation for future cache and external-search boundaries;
 - operator onboarding, knowledge ingestion, review, publish, rollback, and
   freshness workflows;
-- durable append-only audit storage, backup, recovery, and monitoring.
+- backup restore drills, operational recovery, and monitoring.
 
-REV-009 remains **In Progress** until a production persistence adapter and
-operator workflow pass the required isolation and lifecycle evidence.
+REV-009 persistence is complete: hosted migration history is synchronized and
+13 real PostgreSQL isolation/lifecycle tests pass. Operator workflows,
+authentication integration, cache/search isolation, and recovery drills remain
+separate launch work.
 
 ## Launch Gates
 

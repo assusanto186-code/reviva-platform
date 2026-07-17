@@ -77,6 +77,20 @@ represented as HIPAA compliant.
 - Encrypt connections and backups; restrict restore and export access.
 - Test backup restoration and credential replacement in isolation.
 
+Implemented persistence safeguards now include a restricted `reviva_app` role,
+forced RLS, tenant-aware foreign keys and indexes, a security-definer context
+validator, transaction-local context, tenant ownership triggers, immutable
+knowledge content/provenance, and append-only runtime audit permissions. These
+controls were verified against the hosted Supabase Development database on
+2026-07-17. The runtime login is not a superuser, does not inherit, cannot
+create roles or databases, cannot create in the database or public schema, and
+does not have `BYPASSRLS`. Cross-tenant and administrative attempts fail.
+
+Hosted integration tests require explicit Development environment and project
+identity variables, distinct administration/runtime credentials, and a
+Development-only confirmation. A declared Production project ref matching the
+test ref is rejected.
+
 ## AI and Voice Safety
 
 - Models do not authorize users, select tenants, or invoke raw credentials.

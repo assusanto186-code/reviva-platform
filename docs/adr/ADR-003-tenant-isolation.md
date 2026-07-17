@@ -206,6 +206,15 @@ forced RLS, transaction context, composite constraints, audit immutability, and
 the full disposable-PostgreSQL isolation suite are committed and passing.
 Passing only the in-memory tests is insufficient.
 
+### Verification — 2026-07-17
+
+The hosted Supabase Development suite passed 13 integration tests three times with
+unique fake fixtures. Evidence includes cross-tenant read/update/delete denial,
+missing and invalid context rejection, forced-RLS enforcement, runtime
+administrative denial, immutable tenant ownership, transaction-local context
+cleanup after commit and rollback, and transaction object invalidation. Cache
+and external-search isolation remain pending until those systems exist.
+
 ## References
 
 - [Supabase Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security)

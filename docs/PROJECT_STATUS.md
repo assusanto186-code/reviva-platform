@@ -157,6 +157,22 @@ Remaining production work:
 - authentication, database adapter, operator workflows, and production
   tenant-isolation tests.
 
+Completed persistence implementation:
+
+- version-controlled Supabase CLI workspace and three ordered migrations;
+- PostgreSQL core schema, restricted runtime role, forced RLS, tenant-context
+  validation, immutable knowledge protections, and append-only audit boundary;
+- Postgres.js transaction coordinator and implementations of the existing
+  domain repositories;
+- additive optimistic locking and fail-closed Development test safeguards;
+- unit configuration tests and a real-database integration suite.
+
+Hosted Supabase Development verification is complete: migration history is
+synchronized, remote database lint is clean, and 13 real-database integration
+tests passed three times. Docker Desktop still cannot start its Linux engine,
+so the local Supabase workflow remains unavailable without affecting the hosted
+REV-009 evidence.
+
 ### REV-010 — Conversational core
 
 - text-first orchestration, session state, safety behavior, evaluation fixtures,
@@ -223,6 +239,29 @@ Completed REV-009 slices:
 This slice creates verified business boundaries without pretending that an
 in-memory test repository is production persistence.
 
-The next REV-009 slice is versioned PostgreSQL migrations, a restricted runtime
-role, a tenant-bound transaction coordinator, a production repository adapter,
-and shared isolation tests against disposable PostgreSQL.
+REV-009 verification summary:
+
+```text
+REV-009: Complete
+Static implementation: Complete
+Hosted PostgreSQL verification: Complete
+Real database tenant-isolation tests: Passing
+Migration history: Synchronized
+```
+
+- ordered Supabase migrations define tenant-scoped tables, constraints,
+  indexes, a restricted runtime role, forced RLS, and immutable audit/history
+  protections;
+- `@reviva/postgres` implements the existing repository interfaces through a
+  tenant-bound, real PostgreSQL transaction coordinator;
+- 13 hosted PostgreSQL integration tests cover isolation, context rejection, RLS bypass,
+  atomic commit/rollback, optimistic concurrency, immutable history, lifecycle
+  persistence, transaction-session invalidation, tenant ownership, administrative
+  denial, and transaction-local context cleanup;
+- database setup, driver behavior, and Docker recovery are documented.
+
+The hosted suite passed three times with unique fake identifiers and safe cleanup.
+The three local migrations match the hosted Development migration history and
+remote database lint reports no schema errors. Docker Desktop Linux-engine
+recovery remains open, but it does not invalidate the completed hosted
+PostgreSQL verification. REV-010 has not started.

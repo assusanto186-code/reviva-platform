@@ -182,6 +182,27 @@ The adapter may be implemented only with:
 - shared repository conformance tests running against PostgreSQL;
 - fake/demo data only.
 
+## Implementation Addendum — 2026-07-16
+
+Postgres.js 3.4.9 is selected as the wire-protocol driver. It supports real
+transactions through a reserved connection and disables prepared statements
+with `prepare: false`, matching Supavisor transaction-pooler requirements.
+`@reviva/postgres` owns the driver, mappings, transaction coordinator, typed
+errors, and repository implementations. `@reviva/domain` remains unchanged.
+
+The Vercel runtime may reuse a small client pool in a warm instance, but tenant
+state exists only inside transaction-local PostgreSQL settings. Repositories
+are invalidated when the coordinator callback ends.
+
+### Hosted verification — 2026-07-17
+
+The three ordered migrations are synchronized with the linked Supabase
+Development database and remote lint reports no schema errors. The restricted
+`reviva_app` role was authenticated through Supavisor transaction mode with
+prepared statements disabled and its non-administrative attributes were
+verified from PostgreSQL catalogs. Thirteen real-database integration tests
+passed three times with unique fake fixtures and safe cleanup.
+
 ## References
 
 - [Supabase Database overview](https://supabase.com/docs/guides/database/overview)
