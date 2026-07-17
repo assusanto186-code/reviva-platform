@@ -24,6 +24,9 @@ Thumbs.db
 # Turbo
 .turbo/
 
+# Local pnpm store
+.pnpm-store/
+
 # Python
 __pycache__/
 *.pyc

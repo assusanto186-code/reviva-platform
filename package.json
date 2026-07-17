@@ -10,11 +10,16 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "db:lint": "supabase db lint --local --level error",
+    "db:reset": "supabase db reset --local",
+    "db:test": "pnpm --filter @reviva/postgres test:integration",
     "lint": "turbo lint",
+    "supabase:status": "supabase status",
     "test": "turbo test",
     "format": "turbo format"
   },
   "devDependencies": {
+    "supabase": "2.109.1",
     "turbo": "^2.5.6"
   }
 }

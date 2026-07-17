@@ -1,0 +1,2 @@
+-- Intentionally empty. Integration tests create fake data inside isolated test
+-- transactions. Never add patient, medical, PHI, or production data here.
