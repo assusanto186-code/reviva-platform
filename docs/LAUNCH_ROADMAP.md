@@ -46,7 +46,7 @@ Authoritative milestone status is maintained in
 | REV-008 | Publishable web and lead capture | Complete | Validated lead submission, consent, legal pages, search readiness, and documented deployment boundaries. |
 | REV-009 | Tenant and knowledge foundation | Complete | Tenant schema, transactional persistence, forced RLS, restricted runtime, immutable history, and hosted tests. |
 | REV-010 | Authentication and trusted tenant context | Complete | Supabase SSR session, identity mapping, active membership, trusted context, protected shell, logout, and hosted verification. |
-| REV-011 | Conversational core | Planned | Text-first orchestration, session state, safe behavior, evaluations, traces, and quality metrics. |
+| REV-011 | Conversational core | REV-011A Complete; REV-011B Ready to Start | Architecture contracts and ADR-004 through ADR-006 are accepted; runtime implementation has not started. |
 | REV-012 | Voice and character runtime | Planned | Real-time listening and speaking, interruption, disclosure, consent, character policy, and voice evaluations. |
 | REV-013 | Controlled actions | Planned | Tenant-aware lead, availability, booking, confirmation, and notification actions through audited boundaries. |
 | REV-014 | Human operations | Planned | Operator inbox, handoff, takeover, summaries, assignment, resolution, and quality review. |
@@ -178,7 +178,26 @@ context, restricted RLS-backed access, logout, and local session invalidation.
 This is hosted service integration coverage, not browser end-to-end coverage of
 the Next.js routes. All 16 hosted PostgreSQL tests, hosted Auth integration,
 migration synchronization, and the final Production Gate passed. See
-`AUTHENTICATION.md`. REV-011 has not started.
+`AUTHENTICATION.md`. REV-011A architecture is Complete; REV-011B runtime
+implementation is Ready to Start through its separate execution order and has
+not started.
+
+## REV-011A — Conversation Architecture
+
+REV-011A is an architecture and documentation milestone that is **Complete**.
+It defines implementation-ready boundaries for deterministic
+conversation state, principal/capability authorization, a closed tool registry,
+provider-independent structured output, immutable messages/events,
+expected-version concurrency, transaction/outbox/idempotency, knowledge
+provenance, prompt/policy versioning, human handoff, safety, usage/audit
+retention, failure taxonomy, and testing.
+
+The design is recorded in `docs/conversation/` with accepted ADR-004 through
+ADR-006 and all twelve CTO policy decisions incorporated. REV-011B is Ready to
+Start only through its separate execution order and clean precondition gate;
+REV-011B through REV-011G remain unimplemented. No conversation runtime,
+migration, provider integration, tool engine, background worker, endpoint,
+streaming UI, or booking integration has started.
 
 ## Launch Gates
 

@@ -83,6 +83,11 @@ Models cannot select a tenant, grant permissions, bypass policies, or invoke an
 action directly. Model output is untrusted until validated by deterministic
 policy and schema boundaries.
 
+REV-011A documents the accepted conversational boundaries under
+`docs/conversation/` and accepted ADR-004 through ADR-006. Architecture
+acceptance does not represent implemented runtime, persistence, provider, tool,
+endpoint, or UI capabilities; REV-011B implementation has not started.
+
 ## Request Flow
 
 1. Vercel receives an HTTPS request and assigns or propagates a request ID.
@@ -113,10 +118,14 @@ processing.
 - REV-010 authentication is complete: hosted Development verification covers
   Supabase authentication, identity and membership resolution, trusted tenant
   context, restricted RLS-backed access, logout, and local session
-  invalidation. It is not browser end-to-end coverage. REV-011 has not started.
+  invalidation. It is not browser end-to-end coverage. REV-011A architecture is
+  Complete; REV-011B production implementation has not started.
 
 ## Decision Records
 
 - [`ADR-001-authentication.md`](./adr/ADR-001-authentication.md)
 - [`ADR-002-production-database.md`](./adr/ADR-002-production-database.md)
 - [`ADR-003-tenant-isolation.md`](./adr/ADR-003-tenant-isolation.md)
+- [`ADR-004-conversational-core-boundaries.md`](./adr/ADR-004-conversational-core-boundaries.md)
+- [`ADR-005-capability-authorized-tool-execution.md`](./adr/ADR-005-capability-authorized-tool-execution.md)
+- [`ADR-006-conversation-events-outbox-idempotency.md`](./adr/ADR-006-conversation-events-outbox-idempotency.md)

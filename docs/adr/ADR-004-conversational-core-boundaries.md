@@ -1,0 +1,73 @@
+# ADR-004: Conversational Core Boundaries
+
+Status: Accepted
+
+Date: 2026-07-18
+Accepted: 2026-07-18
+
+Related milestone: REV-011A
+
+## Context
+
+Emma needs deterministic conversation behavior without coupling business rules
+to Next.js, PostgreSQL, an AI provider, or booking systems. Existing domain,
+Auth, tenant-context, transaction, RLS, knowledge, and audit foundations are
+reusable, but no conversational boundary exists.
+
+## Decision
+
+Create, during separately authorized implementation, a pure
+`@reviva/conversation` domain and an `@reviva/application` orchestration layer.
+The domain owns aggregate states, commands, events, invariants, failure types,
+capability vocabulary, and ports. Application orchestration owns provider/tool
+coordination, policy order, idempotency workflow, and transaction boundaries.
+
+Messages/events are immutable append streams. A versioned aggregate projection
+holds command state. Provider output is an untrusted proposal and cannot choose
+state, principal, capability, or tool implementation. `apps/web` remains the
+composition/delivery root. Provider, channel, tool, and PostgreSQL code remain
+adapters.
+
+Decision summary: the conversational core is a pure deterministic domain with
+separate application orchestration and vendor-specific adapters. Immutable
+events/messages and an expected-version projection form its state boundary.
+
+## Alternatives Considered
+
+- Put orchestration in Next.js routes: rejected due framework coupling and weak
+  deterministic testing.
+- Put conversation models in `@reviva/domain`: rejected initially to avoid
+  expanding an existing tenant/knowledge package into an uncontrolled hub.
+- Full event sourcing with no projection: rejected due command/query and
+  operational complexity.
+- Provider-native agent runtime as core: rejected because provider objects and
+  arbitrary tool calls would control architecture.
+
+## Consequences
+
+Positive: deterministic tests, vendor independence, explicit transaction/tool
+boundaries, replayable evidence, and replaceable delivery adapters.
+
+Costs: more explicit ports, projection/event consistency requirements, and
+translation code. Package creation requires separate approval in REV-011B.
+
+## Implementation Gate
+
+ADR approval authorizes design direction only. REV-011B MUST prove the state
+machine without network/database/provider dependencies. No runtime package,
+migration, endpoint, or provider integration is created by REV-011A.
+
+References: `docs/conversation/CONVERSATION_ARCHITECTURE.md` and
+`docs/conversation/STATE_MACHINE_SPEC.md`.
+
+## Mandatory Follow-up
+
+- REV-011B MUST implement and deterministically test the pure conversation
+  domain without provider, database, framework, clock, or random dependencies.
+- REV-011C MUST implement application capability/tool authorization separately.
+- REV-011D MUST add persistence only after the domain contracts are stable.
+
+## Implementation Status
+
+Architecture accepted; runtime implementation not started. Acceptance of this
+ADR does not authorize package creation or mark REV-011B complete.

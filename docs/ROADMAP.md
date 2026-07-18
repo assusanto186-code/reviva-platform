@@ -17,8 +17,9 @@ Milestone status is maintained only in
 
 ## Current Repository State
 
-REV-001 through REV-010 are complete. No product implementation milestone is
-currently active, and REV-011 has not started.
+REV-001 through REV-011A are complete. ADR-004 through ADR-006 are accepted;
+REV-011B production implementation is ready for its separately authorized
+execution and has not started.
 
 Completed engineering foundations include:
 
@@ -34,9 +35,9 @@ Completed engineering foundations include:
 
 ## Next Planned Milestone
 
-REV-011 is the next planned product milestone. Architecture design and
-implementation require a separate CTO execution order. REV-010.5A changes
-documentation only and does not begin REV-011.
+REV-011B is the next planned implementation milestone. REV-011B through
+REV-011G require separate execution orders; no production conversation
+implementation has started.
 
 The remaining sequence is:
 
@@ -54,7 +55,7 @@ Production domain activation, Vercel ownership, durable lead delivery, legal
 approval, monitoring, recovery evidence, and operational ownership remain
 release inputs. They are tracked as launch readiness and REV-015 through
 REV-017 work; they do not change the completed status of REV-001 through
-REV-010.
+REV-011A.
 
 Only fake or demonstration data is permitted before the appropriate privacy,
 security, and pilot approvals.

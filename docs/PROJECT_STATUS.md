@@ -12,9 +12,11 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ## Executive Summary
 
-REV-001 through REV-010 are complete. REV-011 has not started. Reviva has a
-verified web, tenant, PostgreSQL, and authentication foundation, but it is not
-yet a conversational AI Employee or a production-ready public product.
+REV-001 through REV-011A are complete. ADR-004 through ADR-006 are accepted;
+REV-011B production implementation is ready for its separately authorized
+execution and has not started. Reviva has a verified web,
+tenant, PostgreSQL, and authentication foundation, but it is not yet a
+conversational AI Employee or a production-ready public product.
 
 Repository completion and public-launch readiness are different gates. External
 domain, legal, monitoring, recovery, and production evidence remain launch work
@@ -31,7 +33,9 @@ milestones.
 - Migration count: four
 - Hosted PostgreSQL integration tests: 16 passing
 - Hosted Auth integration test: passing
-- REV-011 implementation: not started
+- REV-011A architecture: Complete
+- ADR-004, ADR-005, and ADR-006: Accepted
+- REV-011B production implementation: Ready to Start; not started
 
 ## Completed Milestones
 
@@ -101,18 +105,37 @@ milestones.
 - The hosted verification is an integration test of Supabase and Reviva service
   boundaries; it is not a browser or HTTP end-to-end test of the Next.js routes.
 
+### REV-011A — Conversation Architecture
+
+REV-011A is an architecture-first documentation milestone. It defines the
+conversation aggregate, deterministic state machine, authenticated principal
+and capability model, closed tool registry, provider abstraction, immutable
+message/event semantics, concurrency, transaction/outbox/idempotency, knowledge
+provenance, prompt/policy versioning, human handoff, safety, audit retention,
+failure taxonomy, testing, and staged implementation sequence.
+
+ADR-004 through ADR-006 are Accepted. All twelve CTO decision areas are
+normative architecture policy. Architecture acceptance does not imply runtime
+completion: no conversation package, source implementation, migration, provider
+integration, tool execution, background worker, API endpoint, or chat UI has
+been created.
+
+Design documents are maintained under `docs/conversation/`.
+
 ## Current Work
 
-No product implementation milestone is active. REV-010.5A reconciles
-documentation after the accepted engineering audit. It does not start REV-011
-or change production architecture.
+No implementation milestone is currently In Progress. REV-011B is Ready to
+Start only through its separate CTO execution order and clean precondition
+gate; it has not started.
 
 ## Future Milestones
 
-### REV-011 — Conversational core
+### REV-011B through REV-011G — Conversational core implementation
 
 - Text-first orchestration, deterministic state, safe behavior, evaluation,
   traces, latency, cost, and quality metrics.
+- REV-011B through REV-011G remain unimplemented. Each phase requires its own
+  execution order and acceptance gate.
 
 ### REV-012 — Voice and character runtime
 
@@ -144,6 +167,6 @@ or change production architecture.
 
 ## Next Authorized Step
 
-The next product milestone is REV-011. It may begin only through a separate CTO
-execution order. No REV-011 code, schema, package, or architecture work is part
-of REV-010.5A.
+Run the separately authorized REV-011B precondition gate from a clean,
+synchronized repository. No REV-011B code, schema, package, provider, tool,
+endpoint, or UI work has started.
