@@ -17,9 +17,10 @@
     "build": "tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "tsc -p tsconfig.json && node --test test/config.test.mjs",
-    "test:integration": "tsc -p tsconfig.json && node --test test/postgres.integration.test.mjs"
+    "test:integration": "tsc -p tsconfig.json && node --test test/*.integration.test.mjs"
   },
   "dependencies": {
+    "@reviva/auth": "workspace:*",
     "@reviva/domain": "workspace:*",
     "postgres": "3.4.9"
   },
