@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reviva Web
 
-## Getting Started
+`apps/web` is the Next.js delivery application for Reviva. It contains the
+public landing and lead-capture experience, Supabase SSR authentication
+adapters, and the protected application shell.
 
-First, run the development server:
+## Workspace Relationship
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+The application is part of the root pnpm/Turborepo workspace and composes:
+
+- `@reviva/auth` for session and trusted tenant-context rules;
+- `@reviva/postgres` for restricted PostgreSQL identity and tenant access;
+- Next.js-specific Supabase SSR adapters kept inside `apps/web`.
+
+Core domain and persistence rules belong in their internal packages, not in
+React components or route handlers. Run dependency installation from the
+repository root and use pnpm only.
+
+## Commands
+
+From the repository root:
+
+```text
 pnpm dev
-# or
-bun dev
+pnpm --filter web lint
+pnpm --filter web build
+pnpm --filter web test
+pnpm auth:test:integration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The hosted Auth integration command requires the ignored Development
+environment described in `docs/AUTHENTICATION.md`. Never print or commit local
+environment values.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authentication Summary
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Supabase owns credentials and cookie sessions. Protected server operations call
+the live Auth user-validation endpoint, resolve the current Reviva user and
+active membership through restricted PostgreSQL access, create a trusted
+`TenantContext`, and execute through forced RLS. Browser-provided tenant IDs or
+roles are never authoritative.
 
-## Learn More
+The Next.js Proxy refreshes session cookies optimistically; authorization still
+occurs in the server-only data-access layer. Current hosted verification covers
+Supabase authentication, identity and membership resolution, trusted context,
+restricted database access, logout, and local session invalidation. It is not a
+browser end-to-end test.
 
-To learn more about Next.js, take a look at the following resources:
+## Documentation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Milestone status: `docs/PROJECT_STATUS.md`
+- Architecture: `docs/ARCHITECTURE.md`
+- Authentication setup: `docs/AUTHENTICATION.md`
+- Vercel deployment: `docs/VERCEL_PRODUCTION_DEPLOYMENT.md`

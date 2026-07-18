@@ -22,7 +22,9 @@ services/
 
 ## Status
 
-Product foundation in progress. See
-[`docs/LAUNCH_ROADMAP.md`](./docs/LAUNCH_ROADMAP.md) for delivery status and
+REV-001 through REV-010 are complete. REV-011 has not started. See
+[`docs/PROJECT_STATUS.md`](./docs/PROJECT_STATUS.md) for authoritative milestone
+status, [`docs/LAUNCH_ROADMAP.md`](./docs/LAUNCH_ROADMAP.md) for delivery order,
+and
 [`docs/LAUNCH_READINESS_CHECKLIST.md`](./docs/LAUNCH_READINESS_CHECKLIST.md) for
 release evidence.

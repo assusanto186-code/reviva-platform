@@ -110,9 +110,10 @@ processing.
 - Cross-tenant access fails at application and database boundaries.
 - State changes and audit records share a transaction.
 - Migrations and rollback/recovery instructions precede schema deployment.
-- REV-010 authentication is complete: a real hosted Development Auth session
-  was verified through restricted trusted tenant-context resolution, logout,
-  and post-logout rejection. REV-011 has not started.
+- REV-010 authentication is complete: hosted Development verification covers
+  Supabase authentication, identity and membership resolution, trusted tenant
+  context, restricted RLS-backed access, logout, and local session
+  invalidation. It is not browser end-to-end coverage. REV-011 has not started.
 
 ## Decision Records
 

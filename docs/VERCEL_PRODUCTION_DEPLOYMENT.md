@@ -229,9 +229,10 @@ mandatory before a public campaign.
 8. Record the domain, deployment URL, commit SHA, test evidence, approvers, and
    deployment time in `LAUNCH_READINESS_CHECKLIST.md`.
 
-A successful Vercel build is not sufficient launch evidence. REV-008 becomes
-complete only when domain, lead delivery, legal, accessibility, browser,
-performance, monitoring, and rollback evidence is recorded.
+A successful Vercel build is not sufficient launch evidence. REV-008 repository
+implementation is complete, while domain activation, lead delivery, legal,
+accessibility, browser, performance, monitoring, and rollback evidence remain
+mandatory REV-015 through REV-017 launch gates.
 
 ## Rollback Procedure
 

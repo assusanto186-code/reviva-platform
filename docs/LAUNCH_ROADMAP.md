@@ -29,6 +29,8 @@ The capability and delivery contract is defined in
 [`AI_EMPLOYEE_PRODUCT_FRAMEWORK.md`](./AI_EMPLOYEE_PRODUCT_FRAMEWORK.md).
 Release evidence is tracked in
 [`LAUNCH_READINESS_CHECKLIST.md`](./LAUNCH_READINESS_CHECKLIST.md).
+Authoritative milestone status is maintained in
+[`PROJECT_STATUS.md`](./PROJECT_STATUS.md); the table below mirrors that status.
 
 ## Delivery Roadmap
 
@@ -41,7 +43,7 @@ Release evidence is tracked in
 | REV-005 | Brand-aligned UI primitives | Complete | Reusable button, badge, card, input, and container primitives based on semantic tokens. |
 | REV-006 | Landing Page Foundation | Complete | A responsive, accessible public landing page that explains Reviva and provides a clear early-access path. |
 | REV-007 | AI Employee product contract | Complete | Capability model, delivery phases, safety boundaries, evidence rules, and launch checklist. |
-| REV-008 | Publishable web and lead capture | In Progress | Validated lead submission, consent, legal pages, analytics, search readiness, domain, deployment, and monitoring. |
+| REV-008 | Publishable web and lead capture | Complete | Validated lead submission, consent, legal pages, search readiness, and documented deployment boundaries. |
 | REV-009 | Tenant and knowledge foundation | Complete | Tenant schema, transactional persistence, forced RLS, restricted runtime, immutable history, and hosted tests. |
 | REV-010 | Authentication and trusted tenant context | Complete | Supabase SSR session, identity mapping, active membership, trusted context, protected shell, logout, and hosted verification. |
 | REV-011 | Conversational core | Planned | Text-first orchestration, session state, safe behavior, evaluations, traces, and quality metrics. |
@@ -105,7 +107,7 @@ low-friction way to express interest before lead capture infrastructure exists.
   baseline response headers;
 - environment contract and publishing runbook.
 
-### Production blockers
+### Separate production-launch gates
 
 - select and activate the production domain and Next.js-compatible host;
 - configure and test a durable lead destination with a named owner;
@@ -117,8 +119,10 @@ low-friction way to express interest before lead capture infrastructure exists.
 - complete deployed accessibility, cross-browser, performance, security header,
   monitoring, and rollback verification.
 
-REV-008 remains **In Progress** until production delivery and deployment have
-end-to-end evidence in `LAUNCH_READINESS_CHECKLIST.md`.
+REV-008 is **Complete** because its repository implementation and publishing
+contract are delivered. Production delivery and deployment evidence remains
+mandatory for REV-015 through REV-017 and is tracked in
+`LAUNCH_READINESS_CHECKLIST.md`; it does not reopen REV-008.
 
 ## REV-009 — Tenant and Knowledge Foundation
 
@@ -156,9 +160,9 @@ Evidence: `docs/adr/ADR-001-authentication.md`,
 - backup restore drills, operational recovery, and monitoring.
 
 REV-009 persistence is complete: hosted migration history is synchronized and
-13 real PostgreSQL isolation/lifecycle tests pass. Operator workflows,
-authentication, cache/search isolation, and recovery drills remain
-separate launch work.
+13 REV-009 PostgreSQL isolation/lifecycle tests pass. Authentication was
+completed separately in REV-010. Operator workflows, cache/search isolation,
+and recovery drills remain later milestone or launch work.
 
 ## REV-010 — Authentication and Trusted Tenant Context
 
@@ -168,11 +172,13 @@ server user validation, database identity mapping, active membership checks,
 trusted `TenantContext`, restricted RLS-backed `/app`, safe callback/login, and
 logout. Unit and hosted PostgreSQL integration tests pass.
 
-Completion evidence: a fake hosted Development Auth user passed real sign-in,
-server-side validation, identity and membership resolution, trusted context,
-restricted RLS-backed access, logout, and post-logout rejection. All 16 hosted
-PostgreSQL tests, hosted Auth integration, migration synchronization, and the
-final Production Gate passed. See `AUTHENTICATION.md`. REV-011 has not started.
+Completion evidence: a fake hosted Development Auth user passed real Supabase
+sign-in and `getUser` validation, identity and membership resolution, trusted
+context, restricted RLS-backed access, logout, and local session invalidation.
+This is hosted service integration coverage, not browser end-to-end coverage of
+the Next.js routes. All 16 hosted PostgreSQL tests, hosted Auth integration,
+migration synchronization, and the final Production Gate passed. See
+`AUTHENTICATION.md`. REV-011 has not started.
 
 ## Launch Gates
 

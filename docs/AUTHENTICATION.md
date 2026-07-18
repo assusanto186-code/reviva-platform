@@ -86,9 +86,13 @@ session controls in ADR-001 are implemented and tested.
 
 REV-010 hosted verification completed on 2026-07-18 using a fake Development
 Auth user and fake tenant data only. The unmodified project-root URL completed
-password sign-in, server-side `getUser` validation, Reviva identity and active
+Supabase password sign-in, live `getUser` validation, Reviva identity and active
 membership resolution, trusted `TenantContext` creation, a restricted
-`reviva_app` transaction, logout, and post-logout session rejection.
+`reviva_app` transaction, logout, and local session invalidation.
+
+The hosted test invokes Supabase and Reviva service boundaries directly. It does
+not run a browser or HTTP end-to-end flow through `/login`, `/auth/callback`,
+`/app`, or the logout Server Action.
 
 The final gate passed root and web lint/build/tests, strict TypeScript, 16
 hosted PostgreSQL tests, the hosted Auth integration test, linked database

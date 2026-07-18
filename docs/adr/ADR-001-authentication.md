@@ -153,9 +153,11 @@ authorized in a server-only DAL using the current Supabase user and a fresh
 restricted PostgreSQL membership lookup. Supabase dependencies are pinned
 behind Reviva-owned interfaces. The database runtime role has execute access
 only to a minimum-field identity resolver and no direct user-table access.
-The safe hosted Development Auth user completed real login, server-side user
-validation, trusted-context resolution, restricted RLS-backed access, logout,
-and post-logout rejection. REV-010 is complete; REV-011 has not started.
+The safe hosted Development Auth user completed real Supabase sign-in, live
+user validation, trusted-context resolution, restricted RLS-backed access,
+logout, and local session invalidation. This verifies hosted service
+integration, not a browser end-to-end flow. REV-010 is complete; REV-011 has
+not started.
 
 ## References
 

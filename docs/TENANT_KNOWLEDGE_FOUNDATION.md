@@ -2,7 +2,7 @@
 
 Version: 1.0
 
-Status: Domain and Architecture Foundation Implemented
+Status: REV-009 Complete
 
 Owner: Reviva Engineering
 
@@ -10,9 +10,10 @@ Owner: Reviva Engineering
 
 ## Purpose
 
-This document records the first REV-009 implementation slice. It establishes
-the business contracts that persistence, authentication, operator workflows,
-and conversational retrieval must obey.
+This document records the domain foundation delivered by REV-009. It
+establishes the business contracts that persistence, authentication, operator
+workflows, and conversational retrieval must obey. Production persistence and
+authentication were subsequently completed in REV-009 and REV-010.
 
 Implementation: `packages/domain`
 
@@ -90,23 +91,19 @@ A production persistence adapter must:
 
 See `docs/adr` for the complete decisions and rejected alternatives.
 
-## Not Yet Implemented
+## Deferred Follow-on Capabilities
 
-- authentication session and membership resolution;
-- production database schema migrations and adapter;
-- encrypted credential or secret storage;
 - organization onboarding and membership invitation workflows;
 - knowledge ingestion, review, and operator interface;
-- durable transactions, concurrency control, and append-only audit storage;
 - search, retrieval, chunking, or embeddings;
-- production tenant-isolation, backup, recovery, and performance tests.
+- cache and external-search tenant isolation;
+- backup restore drills, production monitoring, and performance evidence.
 
-## Next REV-009 Slice
+## REV-009 Completion
 
-1. Create versioned PostgreSQL migrations and restricted database roles.
-2. Implement a tenant-bound transaction coordinator.
-3. Implement a production repository adapter behind the current interfaces.
-4. Run shared tenant-isolation tests against that adapter.
-5. Add operator workflows for source creation, drafting, review, publish, and
-   rollback.
-6. Add durable audit events and knowledge freshness visibility.
+REV-009 delivered four ordered migrations, the restricted `reviva_app` role,
+forced RLS, transaction-local tenant context, immutable history, append-only
+audit behavior, transactional PostgreSQL adapters, and hosted isolation tests.
+REV-010 subsequently delivered authentication and membership-derived trusted
+context. Remaining operator, retrieval, recovery, and performance capabilities
+belong to later milestones.

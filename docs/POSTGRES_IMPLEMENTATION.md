@@ -2,7 +2,7 @@
 
 Status: Complete and Verified on Hosted Development
 
-Recorded: 2026-07-16; verified: 2026-07-17
+Recorded: 2026-07-16; last verified: 2026-07-18
 
 Related decisions: ADR-002 and ADR-003
 
@@ -68,16 +68,25 @@ in an ignored `supabase/.env.local` file.
 
 ## Hosted Verification
 
-The three migration versions are synchronized between Git and the linked
-Supabase Development project. Linked database lint reports no schema errors.
+The four migration versions are synchronized between Git and the linked
+Supabase Development project:
+
+- `202607160001` — core tenant and knowledge schema;
+- `202607160002` — restricted runtime role, tenant context, and forced RLS;
+- `202607160003` — immutable tenant ownership, knowledge history, and audit;
+- `202607180001` — restricted Auth identity resolution.
+
+Linked database lint reports no schema errors.
 The restricted runtime login was verified through the transaction pooler:
 non-superuser, `NOINHERIT`, no role/database/schema creation, no replication,
 and no `BYPASSRLS`.
 
-Thirteen PostgreSQL integration tests passed three times with fresh fake UUIDs. They
-verify cross-tenant read/update/delete protection, missing/malformed/unauthorized
-context, forced RLS, administrative denial, atomic commit/rollback, optimistic
-locking, immutable knowledge and tenant ownership, publish/supersede/rollback,
+Thirteen REV-009 PostgreSQL integration tests passed three times with fresh fake
+UUIDs. Together with three REV-010 identity tests, the hosted PostgreSQL suite
+now contains 16 passing tests. They verify cross-tenant read/update/delete
+protection, missing/malformed/unauthorized context, forced RLS, administrative
+denial, atomic commit/rollback, optimistic locking, immutable knowledge and
+tenant ownership, publish/supersede/rollback, restricted identity resolution,
 transaction-session invalidation, and context cleanup after commit/rollback.
 
 ## Pending Boundaries

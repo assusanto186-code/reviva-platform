@@ -4,292 +4,146 @@ Report date: 2026-07-18
 
 Status: Active Development
 
-Source of truth: repository state, `LAUNCH_ROADMAP.md`, and
-`LAUNCH_READINESS_CHECKLIST.md`
+This document is the single source of truth for milestone completion. The
+delivery sequence is described in `LAUNCH_ROADMAP.md`; release evidence remains
+in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ---
 
 ## Executive Summary
 
-Reviva has a verified public web foundation and a documented AI Employee
-product direction. The repository is not yet a usable AI Employee product and
-must not be represented as production-ready.
+REV-001 through REV-010 are complete. REV-011 has not started. Reviva has a
+verified web, tenant, PostgreSQL, and authentication foundation, but it is not
+yet a conversational AI Employee or a production-ready public product.
 
-REV-009 and REV-010 are complete. REV-011 has not started.
-REV-008 remains open in parallel because its remaining work depends on external
-production choices and approvals.
-
-Current evidence count:
-
-- 27 launch-readiness items complete;
-- 69 launch-readiness items open;
-- 7 roadmap milestones complete;
-- 2 roadmap milestones in progress;
-- 7 roadmap milestones planned.
+Repository completion and public-launch readiness are different gates. External
+domain, legal, monitoring, recovery, and production evidence remain launch work
+under REV-015 through REV-017; they do not reopen completed foundation
+milestones.
 
 ## Repository State
 
 - Repository: `C:\Users\hp\reviva-platform`
 - Branch: `main`
-- Protected domain checkpoint: `ac4b970` —
-  `feat(domain): establish multi-tenant knowledge foundation`
-- Protected web checkpoint: `5f20491` —
-  `feat(web): establish publishable landing and lead capture`
-- Baseline before this checkpoint: `533bb67`
-- Most recent recorded quality evidence: root lint, root production build,
-  TypeScript, five domain tests, web runtime routes, API failure behavior, and
-  whitespace checks pass
+- Application: `apps/web`
+- Internal packages: `@reviva/domain`, `@reviva/auth`, and `@reviva/postgres`
+- Database workspace: `supabase/`
+- Migration count: four
+- Hosted PostgreSQL integration tests: 16 passing
+- Hosted Auth integration test: passing
+- REV-011 implementation: not started
 
-The previously uncommitted feature work was reviewed and protected in coherent
-Conventional Commit units. The next implementation gate is completion of the
-authentication, production database, and tenant-isolation architecture decision
-records. Those decisions are now accepted; production persistence may proceed
-only through the adapter, migration, transaction, and isolation boundaries they
-define.
-
-## Completed Work
+## Completed Milestones
 
 ### REV-001 — Platform repository foundation
 
-- pnpm workspace and Turborepo foundation;
-- application, package, and service boundaries;
-- root build, lint, test, and development task structure.
+- pnpm workspace, Turborepo tasks, and application/package/service boundaries.
 
 ### REV-002 — Reviva web identity
 
-- Next.js App Router web application;
-- Reviva product identity and initial layout structure;
-- semantic application entry point.
+- Next.js App Router application and initial Reviva product identity.
 
 ### REV-003 — Brand system
 
-- calm, professional, trustworthy, intelligent, and premium principles;
-- semantic color, typography, spacing, radius, shadow, icon, and accessibility
-  direction.
+- Semantic visual, interaction, accessibility, and product-language standards.
 
 ### REV-004 — Engineering standards
 
-- repository and architecture rules;
-- coding, accessibility, security, Git, and quality gates;
-- definition of done and change workflow.
+- Architecture, coding, security, Git, quality-gate, and definition-of-done
+  rules.
 
 ### REV-005 — Brand-aligned UI primitives
 
-- reusable button and button-link patterns;
-- badge, card, input, and container primitives;
-- visible focus and semantic token usage.
+- Reusable button, badge, card, input, and container primitives.
 
 ### REV-006 — Landing Page Foundation
 
-- responsive product landing page;
-- product positioning, capability, workflow, handoff, and early-access sections;
-- honest labeling of planned voice and character capabilities;
-- product metadata and accessible in-page navigation.
+- Responsive, accessible public landing page with honest product positioning
+  and early-access navigation.
 
 ### REV-007 — AI Employee product contract
 
-- AI Employee capability model;
-- phased delivery framework from product contract to production launch;
-- voice, character, action, memory, handoff, and governance boundaries;
-- medical, identity, tenant, and action safety rules;
-- evidence-based launch readiness checklist.
-
-## Work in Progress
+- Capability model, phased delivery framework, safety boundaries, and release
+  evidence checklist.
 
 ### REV-008 — Publishable web and lead capture
 
-Implemented in the repository:
+- Validated early-access form, consent and patient-data warning, spam and
+  request controls, authenticated webhook boundary, legal routes, metadata,
+  publishing runbook, and Vercel production tutorial.
+- The repository milestone is complete. Live-domain, production delivery,
+  legal approval, distributed abuse protection, monitoring, and rollback
+  evidence remain release gates for REV-015 through REV-017.
 
-- accessible early-access form;
-- independent browser and server validation;
-- consent enforcement and patient-data warning;
-- honeypot, origin, request-size, timeout, and basic rate-limit controls;
-- authenticated HTTPS webhook delivery boundary;
-- honest failure and email fallback behavior;
-- Privacy Notice and Website Terms routes;
-- canonical metadata, robots, sitemap, social image, and baseline headers;
-- environment contract and publishing runbook;
-- Vercel-specific production deployment, domain, verification, security, and
-  rollback tutorial.
+### REV-009 — Tenant and knowledge foundation
 
-External blockers:
+- Dependency-free domain contracts for tenants, memberships, knowledge
+  lifecycle, repositories, and audit events.
+- Four ordered PostgreSQL migrations define the tenant schema, restricted
+  `reviva_app` role, forced RLS, tenant context, immutable knowledge history,
+  append-only audit behavior, and restricted Auth identity resolution.
+- `@reviva/postgres` supplies transactional repository adapters, optimistic
+  locking, typed persistence errors, and fail-closed Development guards.
+- Four migrations are synchronized with Supabase Development. Remote database
+  lint is clean and all 16 hosted PostgreSQL integration tests pass.
 
-- approved production domain, Vercel Pro configuration, and live deployment;
-- durable webhook or CRM endpoint, secret, and named lead owner;
-- provider-level bot and distributed rate-limit controls;
-- launch-market legal approval;
-- production accessibility, browser, performance, monitoring, and rollback
-  evidence.
+### REV-010 — Authentication and trusted tenant context
 
-REV-008 remains **In Progress** until these blockers have objective production
-evidence.
+- `@reviva/auth` defines vendor-independent session, identity, redirect, and
+  trusted-context boundaries.
+- `apps/web` implements Supabase SSR clients, Next.js Proxy refresh, `/login`,
+  `/auth/callback`, protected `/app`, controlled inactive/unprovisioned states,
+  and logout.
+- Hosted verification proves Supabase password authentication, live `getUser`
+  validation, Reviva identity and active-membership resolution, trusted
+  `TenantContext` creation, restricted RLS-backed access, and local session
+  invalidation on logout.
+- The hosted verification is an integration test of Supabase and Reviva service
+  boundaries; it is not a browser or HTTP end-to-end test of the Next.js routes.
 
-### REV-010 — Authentication and trusted tenant context (Complete)
+## Current Work
 
-Implemented in the repository:
+No product implementation milestone is active. REV-010.5A reconciles
+documentation after the accepted engineering audit. It does not start REV-011
+or change production architecture.
 
-- vendor-independent `@reviva/auth` session and trusted-context boundary;
-- pinned Supabase SSR server adapters and PKCE-compatible cookie handling;
-- server-validated Auth identity mapped through restricted `reviva_app` access;
-- active user, membership, tenant, and role resolution into `TenantContext`;
-- safe `/login`, `/auth/callback`, protected `/app`, and logout flow;
-- forward-only identity resolver migration applied to Development;
-- 9 auth-domain tests, 3 web boundary tests, and 16 hosted PostgreSQL tests.
-
-Completion evidence:
-
-- a fake hosted Development Auth user completed real password sign-in and
-  server-side `getUser` validation;
-- the Auth subject resolved to an active Reviva user, membership, `viewer`
-  role, tenant, organization, and location without exposing identifiers;
-- trusted `TenantContext`, restricted `reviva_app` transaction, forced RLS,
-  direct `users` denial, logout, and post-logout invalidation passed;
-- all 16 hosted PostgreSQL tests and the hosted Auth integration test passed;
-- the final Production Gate, migration synchronization, and secret/artifact
-  scans passed.
-
-REV-010 is **Complete**. REV-011 has not started.
-
-## Planned Work
-
-### REV-009 — Tenant and knowledge foundation (Complete)
-
-Domain foundation implemented:
-
-- dependency-free `@reviva/domain` package;
-- typed tenant, organization, location, user, membership, and role contracts;
-- explicit tenant context and tenant-aware repository interfaces;
-- knowledge source, entry, immutable version, publish, and rollback contracts;
-- tenant-scoped audit contracts and local test adapters;
-- five passing domain isolation, lifecycle, permission, and audit tests.
-
-Architecture decisions completed:
-
-- Supabase Auth selected behind a Reviva-owned infrastructure boundary;
-- Supabase PostgreSQL selected behind existing domain repository interfaces;
-- Supabase Storage approved only for permitted tenant files;
-- membership-derived `TenantContext`, forced RLS, restricted credentials,
-  transactions, optimistic locking, migration, backup, recovery, and audit
-  strategies documented in `docs/adr`;
-- `ARCHITECTURE.md`, `DATABASE.md`, `API_SPEC.md`, `ROADMAP.md`, and
-  `SECURITY.md` establish the engineering documentation baseline.
-
-Deferred follow-on work:
-
-- tenant, organization, location, membership, and role models;
-- mandatory tenant context at repository boundaries;
-- knowledge source, article, version, review, publish, and rollback lifecycle;
-- explicit ownership, freshness, and source traceability;
-- operator workflows and isolation for future cache/search boundaries.
-
-Completed persistence implementation:
-
-- version-controlled Supabase CLI workspace and four ordered migrations;
-- PostgreSQL core schema, restricted runtime role, forced RLS, tenant-context
-  validation, immutable knowledge protections, and append-only audit boundary;
-- Postgres.js transaction coordinator and implementations of the existing
-  domain repositories;
-- additive optimistic locking and fail-closed Development test safeguards;
-- unit configuration tests and a real-database integration suite.
-
-Hosted Supabase Development verification is complete: migration history is
-synchronized, remote database lint is clean, and 13 real-database integration
-tests passed three times; all 16 tests including REV-010 identity coverage pass
-now. Docker Desktop still cannot start its Linux engine,
-so the local Supabase workflow remains unavailable without affecting the hosted
-REV-009 evidence.
+## Future Milestones
 
 ### REV-011 — Conversational core
 
-- text-first orchestration, session state, safety behavior, evaluation fixtures,
+- Text-first orchestration, deterministic state, safe behavior, evaluation,
   traces, latency, cost, and quality metrics.
 
 ### REV-012 — Voice and character runtime
 
-- real-time speech input and output, interruption, turn-taking, AI disclosure,
-  consent, voice configuration, and character evaluations.
+- Real-time speech, interruption, disclosure, consent, voice configuration, and
+  character evaluation.
 
 ### REV-013 — Controlled actions
 
-- tenant-aware, authorized, idempotent, and auditable lead, availability,
-  booking, confirmation, and notification actions.
+- Tenant-aware, authorized, idempotent, and auditable front-desk actions.
 
 ### REV-014 — Human operations
 
-- operator inbox, handoff, takeover, summaries, assignment, resolution, and
-  quality feedback.
+- Operator inbox, handoff, takeover, assignment, resolution, and quality review.
 
 ### REV-015 — Security and reliability readiness
 
-- data flow, threat model, privacy, retention, recovery, monitoring, service
-  objectives, provider outage, and incident controls.
+- Threat model, privacy, retention, recovery, monitoring, service objectives,
+  provider outage, and incident controls.
 
 ### REV-016 — Design-partner pilot
 
-- approved tenant knowledge, controlled pilot, measured quality, operational
-  learning, and customer sign-off.
+- Approved tenant configuration, controlled rollout, measured quality,
+  operational learning, and customer sign-off.
 
 ### REV-017 — Production launch
 
-- go/no-go approval, staged rollout, support, rollback, incident response, and
-  post-launch quality cadence.
+- Go/no-go approval, staged release, production support, rollback readiness,
+  incident response, and post-launch quality cadence.
 
-## Execution Order
+## Next Authorized Step
 
-1. Build REV-009 domain contracts and tenant-isolation tests.
-2. Select persistence and authentication only after the domain boundaries are
-   verified.
-3. Complete external REV-008 configuration when domain, host, lead destination,
-   and legal owner are available.
-4. Complete REV-010 authentication and trusted tenant context.
-5. Build REV-011 text-first conversational core against tenant-approved
-   knowledge.
-6. Add REV-012 voice only after text safety and policy behavior are measurable.
-7. Add one REV-013 business action at a time through controlled boundaries.
-8. Deliver operator workflows, security hardening, pilot evidence, and staged
-   production launch.
-
-## Immediate Next Slice
-
-Completed REV-009 slices:
-
-- create a dependency-free domain package;
-- model tenants, organizations, locations, memberships, roles, knowledge
-  sources, and versioned knowledge entries;
-- require tenant context for every repository operation;
-- provide a test repository that refuses cross-tenant reads and writes;
-- test draft, publish, and rollback state transitions;
-- document what remains before adding a real database or authentication system.
-- accept the authentication, database, tenant-isolation, migration, backup,
-  recovery, credential, and audit architecture decisions.
-
-This slice creates verified business boundaries without pretending that an
-in-memory test repository is production persistence.
-
-REV-009 verification summary:
-
-```text
-REV-009: Complete
-Static implementation: Complete
-Hosted PostgreSQL verification: Complete
-Real database tenant-isolation tests: Passing
-Migration history: Synchronized
-```
-
-- ordered Supabase migrations define tenant-scoped tables, constraints,
-  indexes, a restricted runtime role, forced RLS, and immutable audit/history
-  protections;
-- `@reviva/postgres` implements the existing repository interfaces through a
-  tenant-bound, real PostgreSQL transaction coordinator;
-- 13 hosted PostgreSQL integration tests cover isolation, context rejection, RLS bypass,
-  atomic commit/rollback, optimistic concurrency, immutable history, lifecycle
-  persistence, transaction-session invalidation, tenant ownership, administrative
-  denial, and transaction-local context cleanup;
-- database setup, driver behavior, and Docker recovery are documented.
-
-The hosted suite passed three times with unique fake identifiers and safe cleanup.
-The three local migrations match the hosted Development migration history and
-remote database lint reports no schema errors. Docker Desktop Linux-engine
-recovery remains open, but it does not invalidate the completed hosted
-PostgreSQL verification. REV-010 hosted authentication and trusted-context
-verification are complete. REV-011 has not started.
+The next product milestone is REV-011. It may begin only through a separate CTO
+execution order. No REV-011 code, schema, package, or architecture work is part
+of REV-010.5A.
