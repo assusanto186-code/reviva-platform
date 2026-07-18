@@ -7,6 +7,9 @@ The package uses Postgres.js with prepared statements disabled for Supavisor
 transaction mode. `PostgresTransactionCoordinator` establishes validated,
 transaction-local tenant context and supplies repository instances bound to the
 same connection. Those instances become unusable after commit or rollback.
+`PostgresAuthIdentityRepository` uses a narrowly granted resolver function to
+map a verified provider subject to minimum user and membership fields while the
+runtime role retains no direct `users` access.
 
 ## Verification
 

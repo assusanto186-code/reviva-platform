@@ -1,6 +1,6 @@
 # Reviva Project Status
 
-Report date: 2026-07-16
+Report date: 2026-07-18
 
 Status: Active Development
 
@@ -15,7 +15,7 @@ Reviva has a verified public web foundation and a documented AI Employee
 product direction. The repository is not yet a usable AI Employee product and
 must not be represented as production-ready.
 
-The next internal milestone is REV-009, tenant and knowledge foundation.
+REV-009 and REV-010 are complete. REV-011 has not started.
 REV-008 remains open in parallel because its remaining work depends on external
 production choices and approvals.
 
@@ -124,9 +124,35 @@ External blockers:
 REV-008 remains **In Progress** until these blockers have objective production
 evidence.
 
+### REV-010 — Authentication and trusted tenant context (Complete)
+
+Implemented in the repository:
+
+- vendor-independent `@reviva/auth` session and trusted-context boundary;
+- pinned Supabase SSR server adapters and PKCE-compatible cookie handling;
+- server-validated Auth identity mapped through restricted `reviva_app` access;
+- active user, membership, tenant, and role resolution into `TenantContext`;
+- safe `/login`, `/auth/callback`, protected `/app`, and logout flow;
+- forward-only identity resolver migration applied to Development;
+- 9 auth-domain tests, 3 web boundary tests, and 16 hosted PostgreSQL tests.
+
+Completion evidence:
+
+- a fake hosted Development Auth user completed real password sign-in and
+  server-side `getUser` validation;
+- the Auth subject resolved to an active Reviva user, membership, `viewer`
+  role, tenant, organization, and location without exposing identifiers;
+- trusted `TenantContext`, restricted `reviva_app` transaction, forced RLS,
+  direct `users` denial, logout, and post-logout invalidation passed;
+- all 16 hosted PostgreSQL tests and the hosted Auth integration test passed;
+- the final Production Gate, migration synchronization, and secret/artifact
+  scans passed.
+
+REV-010 is **Complete**. REV-011 has not started.
+
 ## Planned Work
 
-### REV-009 — Tenant and knowledge foundation
+### REV-009 — Tenant and knowledge foundation (Complete)
 
 Domain foundation implemented:
 
@@ -148,18 +174,17 @@ Architecture decisions completed:
 - `ARCHITECTURE.md`, `DATABASE.md`, `API_SPEC.md`, `ROADMAP.md`, and
   `SECURITY.md` establish the engineering documentation baseline.
 
-Remaining production work:
+Deferred follow-on work:
 
 - tenant, organization, location, membership, and role models;
 - mandatory tenant context at repository boundaries;
 - knowledge source, article, version, review, publish, and rollback lifecycle;
 - explicit ownership, freshness, and source traceability;
-- authentication, database adapter, operator workflows, and production
-  tenant-isolation tests.
+- operator workflows and isolation for future cache/search boundaries.
 
 Completed persistence implementation:
 
-- version-controlled Supabase CLI workspace and three ordered migrations;
+- version-controlled Supabase CLI workspace and four ordered migrations;
 - PostgreSQL core schema, restricted runtime role, forced RLS, tenant-context
   validation, immutable knowledge protections, and append-only audit boundary;
 - Postgres.js transaction coordinator and implementations of the existing
@@ -169,41 +194,42 @@ Completed persistence implementation:
 
 Hosted Supabase Development verification is complete: migration history is
 synchronized, remote database lint is clean, and 13 real-database integration
-tests passed three times. Docker Desktop still cannot start its Linux engine,
+tests passed three times; all 16 tests including REV-010 identity coverage pass
+now. Docker Desktop still cannot start its Linux engine,
 so the local Supabase workflow remains unavailable without affecting the hosted
 REV-009 evidence.
 
-### REV-010 — Conversational core
+### REV-011 — Conversational core
 
 - text-first orchestration, session state, safety behavior, evaluation fixtures,
   traces, latency, cost, and quality metrics.
 
-### REV-011 — Voice and character runtime
+### REV-012 — Voice and character runtime
 
 - real-time speech input and output, interruption, turn-taking, AI disclosure,
   consent, voice configuration, and character evaluations.
 
-### REV-012 — Controlled actions
+### REV-013 — Controlled actions
 
 - tenant-aware, authorized, idempotent, and auditable lead, availability,
   booking, confirmation, and notification actions.
 
-### REV-013 — Human operations
+### REV-014 — Human operations
 
 - operator inbox, handoff, takeover, summaries, assignment, resolution, and
   quality feedback.
 
-### REV-014 — Security and reliability readiness
+### REV-015 — Security and reliability readiness
 
 - data flow, threat model, privacy, retention, recovery, monitoring, service
   objectives, provider outage, and incident controls.
 
-### REV-015 — Design-partner pilot
+### REV-016 — Design-partner pilot
 
 - approved tenant knowledge, controlled pilot, measured quality, operational
   learning, and customer sign-off.
 
-### REV-016 — Production launch
+### REV-017 — Production launch
 
 - go/no-go approval, staged rollout, support, rollback, incident response, and
   post-launch quality cadence.
@@ -215,11 +241,12 @@ REV-009 evidence.
    verified.
 3. Complete external REV-008 configuration when domain, host, lead destination,
    and legal owner are available.
-4. Build REV-010 text-first conversational core against tenant-approved
+4. Complete REV-010 authentication and trusted tenant context.
+5. Build REV-011 text-first conversational core against tenant-approved
    knowledge.
-5. Add REV-011 voice only after text safety and policy behavior are measurable.
-6. Add one REV-012 business action at a time through controlled boundaries.
-7. Deliver operator workflows, security hardening, pilot evidence, and staged
+6. Add REV-012 voice only after text safety and policy behavior are measurable.
+7. Add one REV-013 business action at a time through controlled boundaries.
+8. Deliver operator workflows, security hardening, pilot evidence, and staged
    production launch.
 
 ## Immediate Next Slice
@@ -264,4 +291,5 @@ The hosted suite passed three times with unique fake identifiers and safe cleanu
 The three local migrations match the hosted Development migration history and
 remote database lint reports no schema errors. Docker Desktop Linux-engine
 recovery remains open, but it does not invalidate the completed hosted
-PostgreSQL verification. REV-010 has not started.
+PostgreSQL verification. REV-010 hosted authentication and trusted-context
+verification are complete. REV-011 has not started.

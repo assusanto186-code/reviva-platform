@@ -2,11 +2,11 @@
 
 Version: 1.0
 
-Status: Public Lead API Implemented; Product APIs Pending
+Status: Public Lead API and Authentication Routes Implemented; Product APIs Pending
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-16
+Last reviewed: 2026-07-18
 
 ## Conventions
 
@@ -66,6 +66,18 @@ The downstream event contract is documented in
 [`WEB_PUBLISHING_RUNBOOK.md`](./WEB_PUBLISHING_RUNBOOK.md).
 
 ## Future Authenticated APIs
+
+The current web authentication surface is page/route based:
+
+| Route | Boundary |
+| --- | --- |
+| `GET/POST /login` | Generic credential sign-in response; safe `/app` redirect only |
+| `GET /auth/callback` | PKCE code exchange; missing/invalid code fails to `/login` |
+| `GET /app` | Server-validated session, active Reviva identity and membership required |
+| `POST /app` logout action | Clears the local Supabase session and returns to `/login` |
+
+These routes never accept tenant or role claims as authority and expose no
+internal user, tenant, or membership identifiers.
 
 Product APIs are not implemented or stable. Before adding a route, define:
 

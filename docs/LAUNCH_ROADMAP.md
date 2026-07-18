@@ -42,14 +42,15 @@ Release evidence is tracked in
 | REV-006 | Landing Page Foundation | Complete | A responsive, accessible public landing page that explains Reviva and provides a clear early-access path. |
 | REV-007 | AI Employee product contract | Complete | Capability model, delivery phases, safety boundaries, evidence rules, and launch checklist. |
 | REV-008 | Publishable web and lead capture | In Progress | Validated lead submission, consent, legal pages, analytics, search readiness, domain, deployment, and monitoring. |
-| REV-009 | Tenant and knowledge foundation | In Progress | Tenant isolation, operator access, knowledge publishing, versioning, sources, and audit. |
-| REV-010 | Conversational core | Planned | Text-first orchestration, session state, safe behavior, evaluations, traces, and quality metrics. |
-| REV-011 | Voice and character runtime | Planned | Real-time listening and speaking, interruption, disclosure, consent, character policy, and voice evaluations. |
-| REV-012 | Controlled actions | Planned | Tenant-aware lead, availability, booking, confirmation, and notification actions through audited boundaries. |
-| REV-013 | Human operations | Planned | Operator inbox, handoff, takeover, summaries, assignment, resolution, and quality review. |
-| REV-014 | Security and reliability readiness | Planned | Threat model, privacy review, retention, recovery, monitoring, service objectives, and incident controls. |
-| REV-015 | Design-partner pilot | Planned | Approved tenant configuration, controlled rollout, measured quality, operational learning, and customer sign-off. |
-| REV-016 | Production launch | Planned | Launch approval, staged release, production support, rollback readiness, and post-launch quality cadence. |
+| REV-009 | Tenant and knowledge foundation | Complete | Tenant schema, transactional persistence, forced RLS, restricted runtime, immutable history, and hosted tests. |
+| REV-010 | Authentication and trusted tenant context | Complete | Supabase SSR session, identity mapping, active membership, trusted context, protected shell, logout, and hosted verification. |
+| REV-011 | Conversational core | Planned | Text-first orchestration, session state, safe behavior, evaluations, traces, and quality metrics. |
+| REV-012 | Voice and character runtime | Planned | Real-time listening and speaking, interruption, disclosure, consent, character policy, and voice evaluations. |
+| REV-013 | Controlled actions | Planned | Tenant-aware lead, availability, booking, confirmation, and notification actions through audited boundaries. |
+| REV-014 | Human operations | Planned | Operator inbox, handoff, takeover, summaries, assignment, resolution, and quality review. |
+| REV-015 | Security and reliability readiness | Planned | Threat model, privacy review, retention, recovery, monitoring, service objectives, and incident controls. |
+| REV-016 | Design-partner pilot | Planned | Approved tenant configuration, controlled rollout, measured quality, operational learning, and customer sign-off. |
+| REV-017 | Production launch | Planned | Launch approval, staged release, production support, rollback readiness, and post-launch quality cadence. |
 
 ## REV-006 — Landing Page Foundation
 
@@ -147,10 +148,8 @@ Evidence: `docs/adr/ADR-001-authentication.md`,
 `docs/adr/ADR-002-production-database.md`, and
 `docs/adr/ADR-003-tenant-isolation.md`.
 
-### Remaining production work
+### Deferred follow-on work
 
-- authentication implementation and membership-derived tenant context;
-- authentication integration and operator-facing authorization workflows;
 - tenant isolation for future cache and external-search boundaries;
 - operator onboarding, knowledge ingestion, review, publish, rollback, and
   freshness workflows;
@@ -158,12 +157,26 @@ Evidence: `docs/adr/ADR-001-authentication.md`,
 
 REV-009 persistence is complete: hosted migration history is synchronized and
 13 real PostgreSQL isolation/lifecycle tests pass. Operator workflows,
-authentication integration, cache/search isolation, and recovery drills remain
+authentication, cache/search isolation, and recovery drills remain
 separate launch work.
+
+## REV-010 — Authentication and Trusted Tenant Context
+
+Implemented: pinned Supabase SSR dependencies behind a Reviva-owned auth
+boundary, PKCE-compatible cookie handling, Next.js Proxy refresh, authoritative
+server user validation, database identity mapping, active membership checks,
+trusted `TenantContext`, restricted RLS-backed `/app`, safe callback/login, and
+logout. Unit and hosted PostgreSQL integration tests pass.
+
+Completion evidence: a fake hosted Development Auth user passed real sign-in,
+server-side validation, identity and membership resolution, trusted context,
+restricted RLS-backed access, logout, and post-logout rejection. All 16 hosted
+PostgreSQL tests, hosted Auth integration, migration synchronization, and the
+final Production Gate passed. See `AUTHENTICATION.md`. REV-011 has not started.
 
 ## Launch Gates
 
-REV-016 can move to complete only when:
+REV-017 can move to complete only when:
 
 - the early-access workflow has an accountable owner and tested delivery path;
 - privacy, terms, and consent requirements have been reviewed for launch

@@ -6,7 +6,7 @@ Status: Approved Foundation
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-16
+Last reviewed: 2026-07-18
 
 ## Purpose
 
@@ -56,9 +56,12 @@ persistence.
 
 ### Authenticated application
 
-The authenticated product will validate a Supabase session, resolve a current
-Reviva user and membership, construct `TenantContext`, and invoke application
-use cases. Browser-provided roles or tenant IDs are never authorization.
+The authenticated shell validates Supabase sessions server-side, resolves the
+current Reviva user and active membership through restricted PostgreSQL,
+constructs `TenantContext`, and invokes tenant-aware repositories. Browser-
+provided roles or tenant IDs are never authorization. Proxy refresh is an
+optimistic cookie-maintenance boundary; the server data-access layer performs
+the authoritative user and membership checks for `/app`.
 
 ### Domain
 
@@ -68,14 +71,14 @@ doubles only.
 
 ### Persistence
 
-`@reviva/postgres` will implement existing repository interfaces using explicit
+`@reviva/postgres` implements existing repository interfaces using explicit
 transactions, restricted PostgreSQL credentials, forced RLS, tenant-aware
 constraints, append-only audit records, and optimistic concurrency where
 stale human edits can occur.
 
 ### AI runtime
 
-REV-010 and later will introduce orchestration behind application interfaces.
+REV-011 and later will introduce orchestration behind application interfaces.
 Models cannot select a tenant, grant permissions, bypass policies, or invoke an
 action directly. Model output is untrusted until validated by deterministic
 policy and schema boundaries.
@@ -107,7 +110,9 @@ processing.
 - Cross-tenant access fails at application and database boundaries.
 - State changes and audit records share a transaction.
 - Migrations and rollback/recovery instructions precede schema deployment.
-- REV-010 cannot begin before REV-009 persistence and isolation tests pass.
+- REV-010 authentication is complete: a real hosted Development Auth session
+  was verified through restricted trusted tenant-context resolution, logout,
+  and post-logout rejection. REV-011 has not started.
 
 ## Decision Records
 

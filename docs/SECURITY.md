@@ -35,6 +35,10 @@ represented as HIPAA compliant.
 - MFA is mandatory for owner/admin roles before pilot.
 - Sensitive operations require recent `aal2` authentication.
 - Disabled users, inactive memberships, and suspended tenants fail closed.
+- Supabase SSR tokens remain in PKCE-compatible cookies; application code does
+  not store tokens in local storage or log them. Proxy refresh is not treated
+  as authoritative server-side user validation.
+- Login errors are generic and callback redirects are restricted to `/app`.
 
 ## Tenant Isolation
 
@@ -85,6 +89,8 @@ controls were verified against the hosted Supabase Development database on
 2026-07-17. The runtime login is not a superuser, does not inherit, cannot
 create roles or databases, cannot create in the database or public schema, and
 does not have `BYPASSRLS`. Cross-tenant and administrative attempts fail.
+The REV-010 identity resolver exposes only minimum mapping fields to
+`reviva_app`; the role still cannot select `users` directly.
 
 Hosted integration tests require explicit Development environment and project
 identity variables, distinct administration/runtime credentials, and a

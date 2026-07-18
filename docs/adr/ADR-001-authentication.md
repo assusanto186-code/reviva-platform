@@ -6,7 +6,7 @@ Date: 2026-07-16
 
 Deciders: Reviva Engineering
 
-Related milestone: REV-009
+Related milestone: REV-010
 
 ## Context
 
@@ -144,6 +144,18 @@ Authentication implementation may begin only when it:
   selection, stale sessions, and MFA enforcement;
 - contains fake/demo identities only until the privacy and HIPAA milestones
   authorize real customer data.
+
+## REV-010 Implementation Note (2026-07-18)
+
+Next.js 16 uses `src/proxy.ts` for optimistic session refresh. Request-scoped
+`@supabase/ssr` clients use cookie `getAll`/`setAll`; protected data is still
+authorized in a server-only DAL using the current Supabase user and a fresh
+restricted PostgreSQL membership lookup. Supabase dependencies are pinned
+behind Reviva-owned interfaces. The database runtime role has execute access
+only to a minimum-field identity resolver and no direct user-table access.
+The safe hosted Development Auth user completed real login, server-side user
+validation, trusted-context resolution, restricted RLS-backed access, logout,
+and post-logout rejection. REV-010 is complete; REV-011 has not started.
 
 ## References
 

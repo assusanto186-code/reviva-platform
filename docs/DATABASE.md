@@ -33,7 +33,7 @@ The authoritative decisions are
 | `audit_events` | tenant | Append-only business and security evidence |
 
 The schema is represented by ordered migrations in `supabase/migrations`.
-All three migrations are applied to the linked hosted Supabase Development
+All four migrations are applied to the linked hosted Supabase Development
 project, local and remote histories match, and linked database lint passes.
 
 All tenant tables use UUID identifiers, `tenant_id not null`, tenant-aware
@@ -104,11 +104,12 @@ production voice recordings.
   transaction mode.
 - A transaction coordinator binds repositories and context to one real
   database transaction and invalidates the session afterward.
+- A narrowly granted `resolve_auth_identity` function lets `reviva_app` map a
+  verified Auth subject to minimum user, tenant, membership, and role fields
+  without direct access to `users`.
 - `saveEntryWithExpectedVersion` provides additive optimistic locking without
   changing domain interfaces.
 - `docs/DATABASE_SETUP.md` defines local and hosted Development workflows.
-- The 13-test hosted integration suite passed three times on 2026-07-17 using unique
-  fake identifiers and verified cleanup.
-
-Database lint, reset, and integration evidence remain blocked until a real
-Development target is available.
+- The 16-test hosted integration suite passed on 2026-07-18 using unique fake
+  identifiers and verified cleanup. It includes all 13 REV-009 tests plus
+  three REV-010 identity and trusted-context tests.
