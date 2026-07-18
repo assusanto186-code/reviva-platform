@@ -13,6 +13,7 @@
     "db:lint": "supabase db lint --local --level error",
     "db:reset": "supabase db reset --local",
     "db:test": "pnpm --filter @reviva/postgres test:integration",
+    "auth:test:integration": "pnpm --filter web test:auth:integration",
     "lint": "turbo lint",
     "supabase:status": "supabase status",
     "test": "turbo test",
