@@ -14,17 +14,44 @@ export function readSupabasePublicConfig(env: Environment = process.env) {
   if (isServerSecretKey(publishableKey)) {
     throw new Error("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY must not contain a secret or service-role key.");
   }
+  validateSupabaseProjectRootUrl(url, {
+    allowLocalDevelopment: env.NODE_ENV === "development",
+  });
+  return { url, publishableKey } as const;
+}
+
+export function validateSupabaseProjectRootUrl(
+  value: string,
+  options: Readonly<{ allowLocalDevelopment?: boolean }> = {},
+) {
   let parsed: URL;
   try {
-    parsed = new URL(url);
+    parsed = new URL(value);
   } catch {
-    throw new Error("NEXT_PUBLIC_SUPABASE_URL must be a valid HTTPS URL.");
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL must be a valid absolute URL.");
   }
+
+  if (parsed.username || parsed.password) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL must not contain credentials.");
+  }
+  if (parsed.pathname !== "/" || parsed.search || parsed.hash) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL must be a root project origin without path, query, or fragment.");
+  }
+
   const local = parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1";
-  if (parsed.protocol !== "https:" && !(local && parsed.protocol === "http:")) {
+  if (local) {
+    if (!options.allowLocalDevelopment || parsed.protocol !== "http:") {
+      throw new Error("Local Supabase HTTP requires explicit Development approval.");
+    }
+    return value;
+  }
+  if (parsed.protocol !== "https:") {
     throw new Error("NEXT_PUBLIC_SUPABASE_URL must use HTTPS.");
   }
-  return { url, publishableKey } as const;
+  if (parsed.port || !/^[a-z0-9-]+\.supabase\.co$/iu.test(parsed.hostname)) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL must use the hosted Supabase project host shape.");
+  }
+  return value;
 }
 
 function isServerSecretKey(value: string) {

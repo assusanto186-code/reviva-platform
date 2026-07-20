@@ -4,6 +4,7 @@ import { test } from "node:test";
 import { createClient } from "@supabase/supabase-js";
 import { TrustedTenantContextResolver } from "@reviva/auth";
 import { PostgresAuthIdentityRepository, PostgresTransactionCoordinator, createPostgresClient } from "@reviva/postgres";
+import { readSupabasePublicConfig } from "../src/lib/auth/config.ts";
 
 function required(name) {
   const value = process.env[name]?.trim();
@@ -15,10 +16,11 @@ test("real Supabase session resolves a restricted trusted tenant context", async
   assert.equal(required("REVIVA_DB_ENVIRONMENT"), "development");
   const projectRef = required("REVIVA_DB_TEST_PROJECT_REF");
   assert.notEqual(projectRef, process.env.REVIVA_DB_PRODUCTION_PROJECT_REF?.trim());
+  const publicConfig = readSupabasePublicConfig(process.env);
   const runtime = createPostgresClient(required("REVIVA_DB_RUNTIME_URL"), { max: 1 });
   const supabase = createClient(
-    required("NEXT_PUBLIC_SUPABASE_URL"),
-    required("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"),
+    publicConfig.url,
+    publicConfig.publishableKey,
     { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } },
   );
   try {

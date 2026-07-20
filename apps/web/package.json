@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --experimental-strip-types --test test/*.test.mts",
-    "test:auth:integration": "node test/auth-hosted.integration.mjs"
+    "test:auth:integration": "node --experimental-strip-types test/auth-hosted.integration.mjs"
   },
   "dependencies": {
     "@reviva/auth": "workspace:*",

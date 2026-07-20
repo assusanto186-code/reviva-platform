@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { exchangeAuthorizationCode } from "../src/lib/auth/callback.ts";
-import { getSupabaseCookieOptions, readSupabasePublicConfig, readRuntimeDatabaseUrl } from "../src/lib/auth/config.ts";
+import { getSupabaseCookieOptions, readSupabasePublicConfig, readRuntimeDatabaseUrl, validateSupabaseProjectRootUrl } from "../src/lib/auth/config.ts";
 import { classifySupabaseAuthFailure } from "../src/lib/auth/session-status.ts";
 import { shouldRedirectToLogin } from "../src/lib/auth/access.ts";
 
@@ -28,6 +28,28 @@ test("auth configuration fails closed without required values", () => {
     readSupabasePublicConfig({ NEXT_PUBLIC_SUPABASE_URL: "https://project.supabase.co", NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "public" }),
     { url: "https://project.supabase.co", publishableKey: "public" },
   );
+});
+
+test("Supabase project URL validation accepts only an explicit root origin", () => {
+  assert.equal(validateSupabaseProjectRootUrl("https://project.supabase.co"), "https://project.supabase.co");
+  assert.equal(validateSupabaseProjectRootUrl("https://project.supabase.co/"), "https://project.supabase.co/");
+  assert.equal(
+    validateSupabaseProjectRootUrl("http://127.0.0.1:54321", { allowLocalDevelopment: true }),
+    "http://127.0.0.1:54321",
+  );
+  for (const invalid of [
+    "project.supabase.co",
+    "http://project.supabase.co",
+    "https://user:password@project.supabase.co",
+    "https://project.supabase.co/auth/v1",
+    "https://project.supabase.co?query=1",
+    "https://project.supabase.co#fragment",
+    "https://project.supabase.co:8443",
+    "https://example.com",
+    "http://localhost:54321",
+  ]) {
+    assert.throws(() => validateSupabaseProjectRootUrl(invalid));
+  }
 });
 
 test("authentication cookies become secure in production", () => {
