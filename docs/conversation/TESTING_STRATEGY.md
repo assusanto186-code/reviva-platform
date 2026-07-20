@@ -95,6 +95,12 @@ Development-only guards and crash-recoverable fake fixtures.
 - Expected-version command contract and typed failures approved.
 - No provider/tool/persistence implementation.
 
+Implementation evidence: the package-specific deterministic suite exercises
+domain lifecycle, booking/reactivation, handoff, duplicate/concurrency/stale
+actions, replay integrity, and accepted/denied transitions for every top-level
+state. Exact counts are reported by the current quality gate and MUST NOT be
+treated as a code-coverage percentage.
+
 ### REV-011C
 
 - Principal/capability/tool registry contract suites pass.

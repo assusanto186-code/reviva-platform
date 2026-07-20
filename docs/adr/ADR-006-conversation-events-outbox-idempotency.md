@@ -74,5 +74,7 @@ Reference: `docs/conversation/TRANSACTION_OUTBOX_IDEMPOTENCY.md`.
 
 ## Implementation Status
 
-Architecture accepted; migrations, repositories, workers, and external effects
-are not implemented. Acceptance does not authorize REV-011D.
+Architecture accepted. Completed REV-011B implements expected-version commands,
+immutable ordered events, duplicate contracts, stale-action failures, and
+deterministic replay in memory. Migrations, repositories, outbox workers, and
+external effects remain unimplemented. Acceptance does not authorize REV-011D.

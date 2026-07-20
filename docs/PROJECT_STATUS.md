@@ -1,6 +1,6 @@
 # Reviva Project Status
 
-Report date: 2026-07-18
+Report date: 2026-07-20
 
 Status: Active Development
 
@@ -12,9 +12,8 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ## Executive Summary
 
-REV-001 through REV-011A are complete. ADR-004 through ADR-006 are accepted;
-REV-011B production implementation is ready for its separately authorized
-execution and has not started. Reviva has a verified web,
+REV-001 through REV-011B are complete. ADR-004 through ADR-006 are accepted.
+REV-011C is Ready to Start. Reviva has a verified web,
 tenant, PostgreSQL, and authentication foundation, but it is not yet a
 conversational AI Employee or a production-ready public product.
 
@@ -28,14 +27,16 @@ milestones.
 - Repository: `C:\Users\hp\reviva-platform`
 - Branch: `main`
 - Application: `apps/web`
-- Internal packages: `@reviva/domain`, `@reviva/auth`, and `@reviva/postgres`
+- Internal packages: `@reviva/domain`, `@reviva/auth`, `@reviva/postgres`, and
+  `@reviva/conversation`
 - Database workspace: `supabase/`
 - Migration count: four
 - Hosted PostgreSQL integration tests: 16 passing
 - Hosted Auth integration test: passing
 - REV-011A architecture: Complete
 - ADR-004, ADR-005, and ADR-006: Accepted
-- REV-011B production implementation: Ready to Start; not started
+- REV-011B conversation domain: Complete
+- REV-011C capability authorization and tool registry: Ready to Start
 
 ## Completed Milestones
 
@@ -115,26 +116,40 @@ provenance, prompt/policy versioning, human handoff, safety, audit retention,
 failure taxonomy, testing, and staged implementation sequence.
 
 ADR-004 through ADR-006 are Accepted. All twelve CTO decision areas are
-normative architecture policy. Architecture acceptance does not imply runtime
-completion: no conversation package, source implementation, migration, provider
-integration, tool execution, background worker, API endpoint, or chat UI has
-been created.
+normative architecture policy. Architecture acceptance did not imply runtime
+completion. REV-011B subsequently implemented the pure conversation package;
+no conversation persistence, migration, provider integration, tool execution,
+background worker, API endpoint, or chat UI has been created.
 
 Design documents are maintained under `docs/conversation/`.
 
+### REV-011B — Conversation Domain and Deterministic State Machine
+
+- `@reviva/conversation` implements opaque identifiers, actors/participants,
+  aggregate projection, booking/reactivation/handoff state, typed commands,
+  immutable events, pure transition handling, event application, replay,
+  expected-version concurrency, duplicate contracts, policies, and failures.
+- Deterministic in-memory tests cover every top-level state, booking confirmation
+  and cancellation policy, handoff ownership, stale actions, replay integrity,
+  and concurrency. The milestone passed CTO technical review and is Complete.
+- No persistence, migration, provider, tool runtime, API, UI, environment, or
+  external side effect is part of REV-011B.
+
 ## Current Work
 
-No implementation milestone is currently In Progress. REV-011B is Ready to
-Start only through its separate CTO execution order and clean precondition
-gate; it has not started.
+### REV-011C — Capability Authorization and Tool Registry (Ready to Start)
+
+- The milestone is authorized as the next starting point only; no REV-011C
+  source implementation exists yet.
+- It requires a separate execution order and acceptance gate.
 
 ## Future Milestones
 
-### REV-011B through REV-011G — Conversational core implementation
+### REV-011C through REV-011G — Remaining conversational core implementation
 
 - Text-first orchestration, deterministic state, safe behavior, evaluation,
   traces, latency, cost, and quality metrics.
-- REV-011B through REV-011G remain unimplemented. Each phase requires its own
+- REV-011C through REV-011G remain unimplemented. Each phase requires its own
   execution order and acceptance gate.
 
 ### REV-012 — Voice and character runtime
@@ -167,6 +182,5 @@ gate; it has not started.
 
 ## Next Authorized Step
 
-Run the separately authorized REV-011B precondition gate from a clean,
-synchronized repository. No REV-011B code, schema, package, provider, tool,
-endpoint, or UI work has started.
+Begin REV-011C only under its separate execution order. No REV-011C source
+implementation was started while closing REV-011B.

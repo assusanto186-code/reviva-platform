@@ -22,9 +22,10 @@ services/
 
 ## Status
 
-REV-001 through REV-011A are complete. The accepted conversation architecture
-is documented; REV-011B implementation is ready for its separately authorized
-execution and has not started. See
+REV-001 through REV-011B are complete. The pure
+`@reviva/conversation` aggregate, state machine, commands, events, policies,
+failures, and replay engine are implemented without persistence or provider
+integration. REV-011C is Ready to Start. See
 [`docs/PROJECT_STATUS.md`](./docs/PROJECT_STATUS.md) for authoritative milestone
 status, [`docs/LAUNCH_ROADMAP.md`](./docs/LAUNCH_ROADMAP.md) for delivery order,
 and

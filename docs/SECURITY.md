@@ -108,6 +108,22 @@ test ref is rejected.
 - Human handoff is required for judgment, safety, complaints, and unsupported
   requests.
 
+## REV-011B Conversation-domain Controls
+
+`@reviva/conversation` is a pure in-memory boundary. It accepts no provider,
+database, HTTP, browser, or booking-integration type. Every mutation requires a
+typed command and exact aggregate version, emits one immutable event, and
+changes projection only through event application. Booking creation and material
+modification require matching patient confirmation; autonomous cancellation is
+prohibited. Handoff pauses AI effects, and stale AI, confirmation, and tool
+results fail closed.
+
+The web Auth configuration now validates a Supabase project root origin without
+normalizing or mutating it. Route-function and hosted Auth verification remain
+green. The AUD-005 domain requirement is satisfied. Full browser/HTTP Auth
+journey coverage remains an explicitly tracked web-integration acceptance gate
+pending an approved harness; AUD-005 is therefore not claimed as fully closed.
+
 ## Vulnerability and Incident Handling
 
 Security findings must record severity, affected boundary, owner, containment,
@@ -137,3 +153,6 @@ incident communication path.
 - [`ADR-001-authentication.md`](./adr/ADR-001-authentication.md)
 - [`ADR-002-production-database.md`](./adr/ADR-002-production-database.md)
 - [`ADR-003-tenant-isolation.md`](./adr/ADR-003-tenant-isolation.md)
+- [`ADR-004-conversational-core-boundaries.md`](./adr/ADR-004-conversational-core-boundaries.md)
+- [`ADR-005-capability-authorized-tool-execution.md`](./adr/ADR-005-capability-authorized-tool-execution.md)
+- [`ADR-006-conversation-events-outbox-idempotency.md`](./adr/ADR-006-conversation-events-outbox-idempotency.md)

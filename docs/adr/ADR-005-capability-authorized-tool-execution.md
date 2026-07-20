@@ -81,5 +81,7 @@ adapter or external effect is implemented.
 
 ## Implementation Status
 
-Architecture accepted; capability evaluator, registry, and tool runtime are not
-implemented. ADR acceptance does not authorize REV-011C or external effects.
+Architecture accepted. Completed REV-011B exposes actor/delegation context and a stable
+required-capability vocabulary but intentionally does not enforce capabilities.
+The evaluator, registry, and tool runtime remain unimplemented. REV-011C is
+Ready to Start under its own execution order; external effects are not authorized.

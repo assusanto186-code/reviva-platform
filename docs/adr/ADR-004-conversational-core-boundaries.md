@@ -69,5 +69,8 @@ References: `docs/conversation/CONVERSATION_ARCHITECTURE.md` and
 
 ## Implementation Status
 
-Architecture accepted; runtime implementation not started. Acceptance of this
-ADR does not authorize package creation or mark REV-011B complete.
+Architecture accepted. REV-011B completed the pure `@reviva/conversation`
+domain and deterministic tests. The
+application orchestration layer, infrastructure adapters, and later runtime
+remain unimplemented. REV-011C authorization and tool-registry work is Ready to
+Start under a separate execution order.

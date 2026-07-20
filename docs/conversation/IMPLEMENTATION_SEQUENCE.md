@@ -7,6 +7,8 @@ unfinished acceptance criteria from an earlier phase.
 
 ## REV-011B — Conversation Domain and State Machine
 
+Implementation status: Complete.
+
 Scope: introduce minimal pure contracts for conversation aggregate, immutable
 commands/events, states, expected version, and typed failures.
 
@@ -26,6 +28,8 @@ Acceptance: pure tests prove model text cannot set state and every accepted
 command emits a deterministic event/outcome.
 
 ## REV-011C — Capability Authorization and Tool Registry
+
+Implementation status: Ready to Start; no source implementation has begun.
 
 Scope: principal binding contract, permission/capability evaluator, AI
 delegation grants, confirmation/approval evidence, closed versioned tool

@@ -17,9 +17,9 @@ Milestone status is maintained only in
 
 ## Current Repository State
 
-REV-001 through REV-011A are complete. ADR-004 through ADR-006 are accepted;
-REV-011B production implementation is ready for its separately authorized
-execution and has not started.
+REV-001 through REV-011B are complete. ADR-004 through ADR-006 are accepted.
+The deterministic, in-memory conversation domain is implemented without
+persistence, providers, tools, API, or UI. REV-011C is Ready to Start.
 
 Completed engineering foundations include:
 
@@ -35,9 +35,9 @@ Completed engineering foundations include:
 
 ## Next Planned Milestone
 
-REV-011B is the next planned implementation milestone. REV-011B through
-REV-011G require separate execution orders; no production conversation
-implementation has started.
+REV-011C is Ready to Start; REV-011C through REV-011G require separate execution
+orders and acceptance gates. No REV-011C source implementation, conversation
+persistence, provider integration, tool runtime, API, or UI has started.
 
 The remaining sequence is:
 

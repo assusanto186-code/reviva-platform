@@ -85,8 +85,9 @@ policy and schema boundaries.
 
 REV-011A documents the accepted conversational boundaries under
 `docs/conversation/` and accepted ADR-004 through ADR-006. Architecture
-acceptance does not represent implemented runtime, persistence, provider, tool,
-endpoint, or UI capabilities; REV-011B implementation has not started.
+REV-011B now implements the pure `@reviva/conversation` domain in memory.
+Persistence, provider, application orchestration, capability enforcement, tool
+runtime, endpoint, and UI capabilities remain unimplemented.
 
 ## Request Flow
 
@@ -118,8 +119,8 @@ processing.
 - REV-010 authentication is complete: hosted Development verification covers
   Supabase authentication, identity and membership resolution, trusted tenant
   context, restricted RLS-backed access, logout, and local session
-  invalidation. It is not browser end-to-end coverage. REV-011A architecture is
-  Complete; REV-011B production implementation has not started.
+  invalidation. It is not browser end-to-end coverage. REV-011A architecture and
+  REV-011B pure domain implementation are Complete; REV-011C is Ready to Start.
 
 ## Decision Records
 
