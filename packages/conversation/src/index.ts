@@ -2,6 +2,38 @@ export type { LocationId, TenantId } from "@reviva/domain";
 
 export type { Conversation, ConversationChannel } from "./aggregate/conversation.js";
 export {
+  authorizeCapability,
+  authorizeToolRequest,
+} from "./authorization/authorization-evaluator.js";
+export type {
+  ToolAuthorizationRequest,
+} from "./authorization/authorization-evaluator.js";
+export { createAuthorizationContext } from "./authorization/authorization-context.js";
+export type {
+  AuthorizationActor,
+  AuthorizationContext,
+  ConfirmationEvidence,
+  DelegationAuthority,
+  HumanApprovalEvidence,
+  LocationAuthority,
+  MembershipAuthority,
+} from "./authorization/authorization-context.js";
+export { authorizationReasons } from "./authorization/authorization-decision.js";
+export type {
+  AuthorizationDecision,
+  AuthorizationReason,
+} from "./authorization/authorization-decision.js";
+export {
+  DuplicateToolIdentifier,
+  DuplicateToolName,
+  InvalidAuthorizationContext,
+  InvalidToolDescriptor,
+} from "./authorization/authorization-failure.js";
+export type {
+  ToolCapabilityMismatch,
+  UnknownTool,
+} from "./authorization/authorization-failure.js";
+export {
   createBookingProgress,
   unknownBookingField,
 } from "./booking/booking.js";
@@ -14,6 +46,20 @@ export type {
   BookingProgress,
   BookingProgressPatch,
 } from "./booking/booking.js";
+export {
+  capabilities,
+  capability,
+  capabilitySetHas,
+  createCapabilitySet,
+  emptyCapabilitySet,
+  intersectCapabilitySets,
+  InvalidCapability,
+  isCapability,
+} from "./capabilities/capability.js";
+export type {
+  Capability,
+  CapabilitySet,
+} from "./capabilities/capability.js";
 export {
   conversationCapabilities,
   requiredCapabilityForCommand,
@@ -145,3 +191,13 @@ export {
   waitingConversationStatuses,
 } from "./state-machine/states.js";
 export type { ConversationStatus } from "./state-machine/states.js";
+export {
+  createToolRegistry,
+  toolIdentifier,
+} from "./tools/tool-registry.js";
+export type {
+  ToolDescriptor,
+  ToolIdentifier,
+  ToolLookupResult,
+  ToolRegistry,
+} from "./tools/tool-registry.js";
