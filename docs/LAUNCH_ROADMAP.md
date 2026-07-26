@@ -46,7 +46,7 @@ Authoritative milestone status is maintained in
 | REV-008 | Publishable web and lead capture | Complete | Validated lead submission, consent, legal pages, search readiness, and documented deployment boundaries. |
 | REV-009 | Tenant and knowledge foundation | Complete | Tenant schema, transactional persistence, forced RLS, restricted runtime, immutable history, and hosted tests. |
 | REV-010 | Authentication and trusted tenant context | Complete | Supabase SSR session, identity mapping, active membership, trusted context, protected shell, logout, and hosted verification. |
-| REV-011 | Conversational core | REV-011A–B Complete; REV-011C Ready to Start | Accepted architecture plus a deterministic in-memory conversation domain; later runtime phases have not started. |
+| REV-011 | Conversational core | REV-011A–C Complete; REV-011D Ready to Start | Deterministic domain, capability authorization, and a closed non-executing registry are complete; later runtime phases have not started. |
 | REV-012 | Voice and character runtime | Planned | Real-time listening and speaking, interruption, disclosure, consent, character policy, and voice evaluations. |
 | REV-013 | Controlled actions | Planned | Tenant-aware lead, availability, booking, confirmation, and notification actions through audited boundaries. |
 | REV-014 | Human operations | Planned | Operator inbox, handoff, takeover, summaries, assignment, resolution, and quality review. |
@@ -179,7 +179,8 @@ This is hosted service integration coverage, not browser end-to-end coverage of
 the Next.js routes. All 16 hosted PostgreSQL tests, hosted Auth integration,
 migration synchronization, and the final Production Gate passed. See
 `AUTHENTICATION.md`. REV-011A architecture and REV-011B pure domain
-implementation are Complete; REV-011C is Ready to Start.
+implementation and REV-011C authorization are Complete. REV-011D is Ready to
+Start but has not started.
 
 ## REV-011A — Conversation Architecture
 
@@ -194,8 +195,10 @@ retention, failure taxonomy, and testing.
 The design is recorded in `docs/conversation/` with accepted ADR-004 through
 ADR-006 and all twelve CTO policy decisions incorporated. REV-011B now provides
 the pure `@reviva/conversation` aggregate, state machine, command/event engine,
-policies, typed failures, and deterministic replay. REV-011C
-through REV-011G remain unimplemented. No conversation persistence, migration,
+policies, typed failures, and deterministic replay. REV-011C implements pure
+capability authorization and a closed non-executing tool registry and passed
+the complete local and hosted quality gate. REV-011D is Ready to Start but has
+not started; REV-011D through REV-011G remain unimplemented. No conversation persistence, migration,
 provider integration, tool engine, background worker, endpoint, streaming UI,
 or booking integration has started.
 
@@ -206,6 +209,16 @@ expected-version commands, immutable events, booking confirmation and
 cancellation policy, handoff AI restrictions, stale-action rejection,
 reactivation opt-out, deterministic replay, and assessed transitions for all
 ten top-level states. See `conversation/STATE_MACHINE_IMPLEMENTATION.md`.
+
+## REV-011C — Capability Authorization and Tool Registry
+
+REV-011C is **Complete**. The implementation composes
+global, subscription, tenant, location, actor/role, delegation, and
+conversation-state authority by intersection; returns typed allow, deny,
+confirmation, approval, and handoff decisions; and validates a closed immutable
+registry. It deliberately contains no tool handlers, execution runtime,
+persistence, provider integration, routes, UI, or external effects. See
+`conversation/CAPABILITY_AND_TOOL_POLICY.md`.
 
 ## Launch Gates
 

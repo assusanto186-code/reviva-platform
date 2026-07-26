@@ -6,7 +6,7 @@ Status: Active
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-18
+Last reviewed: 2026-07-23
 
 ## Source of Truth
 
@@ -17,9 +17,10 @@ Milestone status is maintained only in
 
 ## Current Repository State
 
-REV-001 through REV-011B are complete. ADR-004 through ADR-006 are accepted.
+REV-001 through REV-011C are complete. ADR-004 through ADR-006 are accepted.
 The deterministic, in-memory conversation domain is implemented without
-persistence, providers, tools, API, or UI. REV-011C is Ready to Start.
+persistence, providers, tool execution, API, or UI. REV-011C completed pure
+capability authorization and a closed non-executing registry.
 
 Completed engineering foundations include:
 
@@ -35,9 +36,10 @@ Completed engineering foundations include:
 
 ## Next Planned Milestone
 
-REV-011C is Ready to Start; REV-011C through REV-011G require separate execution
-orders and acceptance gates. No REV-011C source implementation, conversation
-persistence, provider integration, tool runtime, API, or UI has started.
+REV-011D is Ready to Start but has not started. REV-011D through REV-011G
+require separate execution orders and acceptance gates. No
+conversation persistence, provider integration, tool execution, API, or UI has
+started.
 
 The remaining sequence is:
 

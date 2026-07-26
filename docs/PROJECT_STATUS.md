@@ -1,6 +1,6 @@
 # Reviva Project Status
 
-Report date: 2026-07-20
+Report date: 2026-07-23
 
 Status: Active Development
 
@@ -12,8 +12,9 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ## Executive Summary
 
-REV-001 through REV-011B are complete. ADR-004 through ADR-006 are accepted.
-REV-011C is Ready to Start. Reviva has a verified web,
+REV-001 through REV-011C are complete. ADR-004 through ADR-006 are accepted.
+REV-011C's deterministic authorization evaluator and closed, non-executing
+tool registry passed the complete local and hosted quality gate. Reviva has a verified web,
 tenant, PostgreSQL, and authentication foundation, but it is not yet a
 conversational AI Employee or a production-ready public product.
 
@@ -36,7 +37,7 @@ milestones.
 - REV-011A architecture: Complete
 - ADR-004, ADR-005, and ADR-006: Accepted
 - REV-011B conversation domain: Complete
-- REV-011C capability authorization and tool registry: Ready to Start
+- REV-011C capability authorization and tool registry: Complete
 
 ## Completed Milestones
 
@@ -135,21 +136,39 @@ Design documents are maintained under `docs/conversation/`.
 - No persistence, migration, provider, tool runtime, API, UI, environment, or
   external side effect is part of REV-011B.
 
+### REV-011C — Capability Authorization and Tool Registry
+
+- `@reviva/conversation` now owns one canonical capability vocabulary,
+  immutable capability sets, typed authority facts, deny-by-default decisions,
+  authority intersection, confirmation/approval/handoff/reactivation policy,
+  and a closed immutable tool registry.
+- Registry descriptors contain no execution handler. Unknown tools, duplicate
+  identifiers/names, invalid capability references, provider-specific fields,
+  and executable fields fail deterministically.
+- The implementation is pure and in memory. It performs no tool execution,
+  persistence, provider call, environment read, network call, or external side
+  effect.
+- All deterministic package gates, root quality gates, hosted Auth integration,
+  hosted PostgreSQL integration, database lint, and migration synchronization
+  passed. Production role-to-capability mapping remains pending trusted
+  application integration.
+
 ## Current Work
 
-### REV-011C — Capability Authorization and Tool Registry (Ready to Start)
+### REV-011D — Persistence, Immutable Events, Idempotency, and Outbox (Ready to Start)
 
-- The milestone is authorized as the next starting point only; no REV-011C
-  source implementation exists yet.
-- It requires a separate execution order and acceptance gate.
+- REV-011D is authorized as the next milestone but its implementation has not
+  started.
+- No conversation persistence, migration, outbox worker, provider integration,
+  tool execution, endpoint, or UI has been introduced by REV-011C.
 
 ## Future Milestones
 
-### REV-011C through REV-011G — Remaining conversational core implementation
+### REV-011E through REV-011G — Remaining conversational core implementation
 
 - Text-first orchestration, deterministic state, safe behavior, evaluation,
   traces, latency, cost, and quality metrics.
-- REV-011C through REV-011G remain unimplemented. Each phase requires its own
+- REV-011E through REV-011G remain unimplemented. Each phase requires its own
   execution order and acceptance gate.
 
 ### REV-012 — Voice and character runtime
@@ -182,5 +201,5 @@ Design documents are maintained under `docs/conversation/`.
 
 ## Next Authorized Step
 
-Begin REV-011C only under its separate execution order. No REV-011C source
-implementation was started while closing REV-011B.
+Begin REV-011D only under its dedicated execution order. REV-011D is Ready to
+Start; its implementation has not started.

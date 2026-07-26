@@ -108,6 +108,17 @@ treated as a code-coverage percentage.
 - Confirmation/approval/effect-digest cases pass.
 - No external tool effects.
 
+Implementation evidence: deterministic tests cover the canonical capability
+set, authority intersection at every layer, active membership, actor authority,
+AI delegation and staleness, conversation-state restrictions, booking
+confirmation, cancellation approval, handoff/assist-only behavior,
+reactivation basis and opt-out, human resume, registry construction and
+immutability, unknown/duplicate tools, invalid or executable descriptors,
+tool-capability matching, and a representative policy matrix. The current
+quality gate reports exact test counts; these are not code-coverage percentages.
+The closure gate also passed hosted Auth and hosted PostgreSQL integration,
+linked database lint, and migration synchronization.
+
 ### REV-011D
 
 - Migrations reproduce from zero and remain synchronized.

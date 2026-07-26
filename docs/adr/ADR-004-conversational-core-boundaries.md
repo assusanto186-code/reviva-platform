@@ -70,7 +70,8 @@ References: `docs/conversation/CONVERSATION_ARCHITECTURE.md` and
 ## Implementation Status
 
 Architecture accepted. REV-011B completed the pure `@reviva/conversation`
-domain and deterministic tests. The
-application orchestration layer, infrastructure adapters, and later runtime
-remain unimplemented. REV-011C authorization and tool-registry work is Ready to
-Start under a separate execution order.
+domain and deterministic tests. REV-011C completed capability authorization
+and the closed non-executing tool registry. The application orchestration
+layer, infrastructure adapters, and later runtime remain unimplemented.
+REV-011D is Ready to Start under a separate execution order but has not
+started.

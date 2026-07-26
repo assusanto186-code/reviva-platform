@@ -1,6 +1,6 @@
 # Capability and Tool Policy
 
-Status: REV-011A Complete — accepted architecture policy resolving AUD-001 and AUD-002
+Status: REV-011A policy accepted; REV-011C Complete
 
 ## Security Equation
 
@@ -192,7 +192,39 @@ model proposal
 - Actual cost ceiling values and rolling windows; both per-conversation and
   per-tenant ceilings remain mandatory.
 
+## REV-011C Implementation
+
+`@reviva/conversation` now provides one canonical capability vocabulary,
+immutable validated capability sets, a typed immutable `AuthorizationContext`,
+typed decisions and safe reason codes, deterministic authority intersection,
+and `authorizeCapability`.
+
+The implemented authority layers are global, subscription, tenant, optional
+location, actor/role-derived authority, explicit AI delegation, and
+conversation-state policy. The evaluator also enforces matching booking
+confirmation, autonomous cancellation approval, handoff and assist-only
+restrictions, human resume with fresh delegation, reactivation communication
+basis, and opt-out.
+
+`createToolRegistry` finalizes explicit provider-agnostic descriptors into an
+immutable registry with deterministic lookup and enumeration. It rejects
+unknown tools, duplicate ID/version or name/version entries, noncanonical
+capabilities, malformed actor categories, arbitrary/provider fields, and all
+function-valued fields. `authorizeToolRequest` verifies registry membership,
+capability consistency, actor category, delegation tool scope, state,
+confirmation, and approval, then returns a decision only.
+
+REV-011C implements no tool handler, dynamic import, tool execution, provider
+integration, persistence, network call, route, UI, clock, randomness,
+environment read, or external side effect.
+
+The deterministic package gates, root quality gate, hosted Auth integration,
+hosted PostgreSQL integration, linked database lint, and migration
+synchronization passed at closure. Production role-to-capability mapping
+remains pending trusted application integration.
+
 ## Non-goals
 
-This document does not assign production role mappings, implement the registry,
-or authorize any current repository method for AI execution.
+This document does not assign production role mappings or authorize any current
+repository method for AI execution. Registry eligibility is not execution
+authority and no execution runtime exists.

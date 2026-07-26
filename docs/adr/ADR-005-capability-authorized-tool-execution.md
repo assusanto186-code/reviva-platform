@@ -81,7 +81,9 @@ adapter or external effect is implemented.
 
 ## Implementation Status
 
-Architecture accepted. Completed REV-011B exposes actor/delegation context and a stable
-required-capability vocabulary but intentionally does not enforce capabilities.
-The evaluator, registry, and tool runtime remain unimplemented. REV-011C is
-Ready to Start under its own execution order; external effects are not authorized.
+Architecture accepted. Completed REV-011B exposes actor/delegation context and
+command capability requirements. REV-011C is Complete with one canonical
+capability vocabulary, deterministic authority intersection, typed decisions,
+and a closed provider-agnostic registry. The
+registry contains no execution functions and the evaluator performs no external
+effect. Tool runtime and adapters remain unimplemented and unauthorized.

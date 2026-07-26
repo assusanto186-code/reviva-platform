@@ -1,14 +1,15 @@
 # Conversation State Machine Implementation
 
-Status: REV-011B Complete; REV-011C Ready to Start
+Status: REV-011B Complete; REV-011C Complete; REV-011D Ready to Start
 
-Last reviewed: 2026-07-20
+Last reviewed: 2026-07-23
 
 ## Scope
 
-`@reviva/conversation` implements the accepted REV-011A deterministic domain.
-It is in-memory only. It does not implement persistence, capability evaluation,
-tool execution, AI providers, application orchestration, delivery, API, or UI.
+`@reviva/conversation` implements the accepted REV-011A deterministic domain
+and pure authorization policy. It is in-memory only. It does not implement
+persistence, tool execution, AI providers, application orchestration, delivery,
+API, or UI.
 
 ## Mechanics
 
@@ -85,14 +86,17 @@ known inbound message through `CommandHandlingContext`; the domain returns
 typed `DuplicateCommand` or `DuplicateInboundMessage` without storing an
 unbounded ID list.
 
-## Remaining REV-011C Prerequisites
+## REV-011C Integration Boundary
 
-- Enforce `requiredCapabilityForCommand` before command execution.
-- Bind evaluated permission, resource scope, tenant/location narrowing, and
-  delegation policy in application orchestration.
-- Implement the closed tool registry and effect authorization separately.
+- `requiredCapabilityForCommand` now uses the canonical capability vocabulary.
+- Pure authorization evaluates permission, resource scope, tenant/location
+  narrowing, state, and delegation facts supplied by the application boundary.
+- The closed registry and effect-eligibility decision are implemented without
+  any tool handler or execution runtime.
 
-No capability enforcement or tool runtime is implemented by REV-011B.
+REV-011B itself remains the completed state-machine milestone. REV-011C adds
+authorization eligibility only and is Complete; no tool runtime is
+implemented. REV-011D is Ready to Start but has not started.
 
 ## Audit Safeguard Status
 

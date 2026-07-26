@@ -118,6 +118,21 @@ modification require matching patient confirmation; autonomous cancellation is
 prohibited. Handoff pauses AI effects, and stale AI, confirmation, and tool
 results fail closed.
 
+## REV-011C Authorization Controls
+
+Authorization is a pure deny-by-default decision boundary. Effective authority
+is the intersection of global, subscription, tenant, location, actor/role,
+delegation, and conversation-state capabilities. Missing authority denies;
+tenant and location policy can narrow but never expand. Booking confirmation,
+human cancellation approval, handoff/assist-only restrictions, fresh resume
+delegation, reactivation basis, and opt-out are evaluated from typed immutable
+facts supplied by the trusted application boundary.
+
+The tool registry is closed and immutable. It rejects unknown or duplicate
+tools, noncanonical capabilities, arbitrary/provider-specific fields, and
+execution functions. Tool authorization returns only a typed decision; REV-011C
+does not execute code or call an adapter.
+
 The web Auth configuration now validates a Supabase project root origin without
 normalizing or mutating it. Route-function and hosted Auth verification remain
 green. The AUD-005 domain requirement is satisfied. Full browser/HTTP Auth

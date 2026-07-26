@@ -29,7 +29,7 @@ command emits a deterministic event/outcome.
 
 ## REV-011C — Capability Authorization and Tool Registry
 
-Implementation status: Ready to Start; no source implementation has begun.
+Implementation status: Complete.
 
 Scope: principal binding contract, permission/capability evaluator, AI
 delegation grants, confirmation/approval evidence, closed versioned tool
@@ -50,6 +50,8 @@ Acceptance: no command or tool proposal can pass using TenantContext alone; AI
 authority is demonstrably narrower than global/staff policy.
 
 ## REV-011D — Persistence, Immutable Events, Idempotency, and Outbox
+
+Implementation status: Ready to Start — implementation has not started.
 
 Scope: reviewed migrations and PostgreSQL adapters for aggregate projection,
 messages/events, authorization evidence, usage reservations, idempotency, and

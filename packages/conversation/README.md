@@ -1,8 +1,11 @@
 # @reviva/conversation
 
-Pure, deterministic conversation domain for Emma. REV-011B keeps the aggregate,
-commands, events, policies, failures, transition engine, and event replay free
-from infrastructure and vendor concerns.
+Pure, deterministic conversation and authorization domain for Emma. REV-011B
+keeps the aggregate, commands, events, policies, failures, transition engine,
+and event replay free from infrastructure and vendor concerns. REV-011C adds a
+pure deny-by-default capability evaluator and closed tool registry without
+executing tools. REV-011C is Complete; REV-011D is Ready to Start but has not
+started.
 
 ## Boundary
 
@@ -41,8 +44,12 @@ not a command and is not represented by this package.
 - `rehydrateConversation` for deterministic replay.
 - Typed `ConversationResult` and `ConversationFailure` contracts.
 - Pure booking, handoff, reopen, and AI-effect eligibility policies.
-- `requiredCapabilityForCommand`, which declares future authorization needs but
-  does not perform REV-011C capability enforcement.
+- One canonical capability vocabulary and immutable capability sets.
+- `AuthorizationContext`, typed authorization decisions, and
+  `authorizeCapability`.
+- Immutable provider-agnostic tool descriptors, `createToolRegistry`, and
+  `authorizeToolRequest`.
+- `requiredCapabilityForCommand`, backed by the same canonical vocabulary.
 
 Internal freezing helpers and event construction helpers are intentionally not
 exported.
@@ -70,6 +77,22 @@ reactivation response, resolution/closure/reopen, and failure/recovery.
 Tool commands represent already validated application intent. They do not call
 or authorize a tool.
 
+## Authorization and Registry
+
+Effective authority is the intersection of global, subscription, tenant,
+location, actor/role, delegation, and conversation-state authority. Every
+missing or narrower layer denies; tenant and location policy cannot expand a
+broader layer. Booking create/modify requires matching confirmation,
+autonomous cancellation requires human approval, handoff blocks autonomous
+effects, resume requires a human plus fresh delegation, and reactivation stops
+without an approved basis or after opt-out.
+
+The registry accepts only explicit, immutable descriptors with canonical
+capabilities, unique ID/version and name/version pairs, actor categories,
+confirmation/approval policy, effect classification, and contract references.
+Unknown tools, arbitrary fields, provider metadata, and execution functions are
+rejected. Registry authorization returns a decision only.
+
 ## Tests
 
 ```powershell
@@ -83,3 +106,5 @@ provider, filesystem reads, real clock, or random ID generation.
 
 The assessed state/command matrix is documented in
 `docs/conversation/STATE_MACHINE_IMPLEMENTATION.md`.
+The capability, authorization, and registry policy is documented in
+`docs/conversation/CAPABILITY_AND_TOOL_POLICY.md`.

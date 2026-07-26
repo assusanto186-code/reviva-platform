@@ -84,10 +84,11 @@ action directly. Model output is untrusted until validated by deterministic
 policy and schema boundaries.
 
 REV-011A documents the accepted conversational boundaries under
-`docs/conversation/` and accepted ADR-004 through ADR-006. Architecture
-REV-011B now implements the pure `@reviva/conversation` domain in memory.
-Persistence, provider, application orchestration, capability enforcement, tool
-runtime, endpoint, and UI capabilities remain unimplemented.
+`docs/conversation/` and accepted ADR-004 through ADR-006. REV-011B implements
+the pure `@reviva/conversation` aggregate and state machine in memory. REV-011C
+is Complete with deterministic capability authorization and a closed
+provider-agnostic registry. Persistence, provider integration, tool execution,
+application orchestration, endpoints, and UI remain unimplemented.
 
 ## Request Flow
 
@@ -120,7 +121,8 @@ processing.
   Supabase authentication, identity and membership resolution, trusted tenant
   context, restricted RLS-backed access, logout, and local session
   invalidation. It is not browser end-to-end coverage. REV-011A architecture and
-  REV-011B pure domain implementation are Complete; REV-011C is Ready to Start.
+  REV-011B pure domain implementation and REV-011C authorization are Complete.
+  REV-011D is Ready to Start but has not started.
 
 ## Decision Records
 
