@@ -2,6 +2,10 @@ import type { LocationId, TenantId } from "@reviva/domain";
 
 import type { ConversationChannel } from "../aggregate/conversation.js";
 import type { BookingOperation, BookingProgressPatch } from "../booking/booking.js";
+import {
+  capabilities,
+  type Capability,
+} from "../capabilities/capability.js";
 import type { HandoffUrgency } from "../handoff/handoff.js";
 import type {
   CommandId,
@@ -22,31 +26,8 @@ import type {
 } from "../participants/participants.js";
 import type { ReactivationResponse } from "../reactivation/reactivation.js";
 
-export const conversationCapabilities = [
-  "conversation.start",
-  "conversation.message.record_inbound",
-  "conversation.message.record_outbound",
-  "conversation.await_user",
-  "conversation.assign",
-  "conversation.resolve",
-  "conversation.close",
-  "conversation.reopen",
-  "conversation.fail",
-  "conversation.recover",
-  "booking.intent.record",
-  "booking.progress.update",
-  "booking.confirmation.request",
-  "booking.confirmation.record",
-  "tool.propose",
-  "tool.result.record",
-  "handoff.request",
-  "handoff.accept",
-  "handoff.resolve",
-  "automation.resume",
-  "reactivation.response.record",
-] as const;
-
-export type ConversationCapability = (typeof conversationCapabilities)[number];
+export const conversationCapabilities = capabilities;
+export type ConversationCapability = Capability;
 
 type BaseCommand<Type extends string, Payload> = Readonly<{
   type: Type;
