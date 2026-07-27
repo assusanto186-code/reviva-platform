@@ -170,6 +170,103 @@ export type {
   DelegationReference,
   Participant,
 } from "./participants/participants.js";
+export type {
+  AuditRepository,
+  BeginTransactionInput,
+  ConversationEventRepository,
+  ConversationEventStream,
+  ConversationProjectionRepository,
+  ConversationProjectionResult,
+  ConversationSnapshotRepository,
+  ConversationSnapshotResult,
+  IdempotencyRepository,
+  OutboxRepository,
+  ReserveIdempotencyInput,
+  TransactionContext,
+  TransactionManager,
+  TransactionState,
+} from "./persistence/contracts.js";
+export {
+  ConversationStreamNotFound,
+  DuplicatePersistenceIdentifier,
+  ForeignTransactionContext,
+  HiddenNestedTransaction,
+  IdempotencyPayloadMismatch,
+  InvalidIdempotencyTransition,
+  InvalidOutboxTransition,
+  InvalidPersistenceValue,
+  PersistenceConcurrencyConflict,
+  PersistenceMappingFailure,
+  SnapshotIncompatible,
+  TenantScopeMismatch,
+  TransactionClosed,
+} from "./persistence/failures.js";
+export {
+  createInMemoryConversationPersistence,
+} from "./persistence/in-memory-reference.js";
+export type {
+  InMemoryConversationPersistence,
+} from "./persistence/in-memory-reference.js";
+export {
+  conversationEventFromDto,
+  conversationEventToDto,
+  conversationSnapshotFromDto,
+  conversationSnapshotToDto,
+  idempotencyRecordFromDto,
+  idempotencyRecordToDto,
+  outboxMessageFromDto,
+  outboxMessageToDto,
+} from "./persistence/mappers.js";
+export type {
+  ConversationEventDto,
+  ConversationSnapshotDto,
+  IdempotencyRecordDto,
+  OutboxMessageDto,
+} from "./persistence/mappers.js";
+export {
+  createAuditEntry,
+  createConversationSnapshot,
+  createOutboxMessage,
+  hasValidSnapshotIntegrity,
+  outboxStates,
+} from "./persistence/models.js";
+export type {
+  AuditEntry,
+  ConversationSnapshot,
+  CreateAuditEntryInput,
+  CreateOutboxMessageInput,
+  IdempotencyRecord,
+  IdempotencyReservation,
+  IdempotencyState,
+  OutboxMessage,
+  OutboxState,
+  SafeAuditMetadataValue,
+} from "./persistence/models.js";
+export {
+  restoreConversationFromSnapshot,
+} from "./persistence/replay.js";
+export {
+  auditEntryId,
+  canonicalRequestFingerprint,
+  expectedVersion,
+  freezeCanonicalValue,
+  idempotencyKey,
+  operationId,
+  outboxMessageId,
+  resultReference,
+  transactionId,
+} from "./persistence/values.js";
+export type {
+  AuditEntryId,
+  CanonicalValue,
+  ExpectedVersion,
+  IdempotencyKey,
+  OperationId,
+  OutboxMessageId,
+  RequestFingerprint,
+  ResultReference,
+  TransactionId,
+} from "./persistence/values.js";
 export {
   bookingPatchInvalidatesConfirmation,
   canReopenConversation,
