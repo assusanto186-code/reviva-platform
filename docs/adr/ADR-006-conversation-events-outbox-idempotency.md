@@ -57,10 +57,12 @@ replay checks, and provider-specific idempotency adapters.
 
 ## Implementation Gate
 
-REV-011D MUST prove clean migrations, forced RLS, atomic state/event/audit/
-outbox writes, concurrency conflicts, duplicate behavior, leases, retries,
-dead-letter recovery, cursor pagination, and cleanup against Development
-PostgreSQL before an external effect is enabled.
+Any production conversation-persistence milestone MUST prove clean migrations,
+forced RLS, atomic state/event/audit/outbox writes, concurrency conflicts,
+duplicate behavior, leases, retries, dead-letter recovery, cursor pagination,
+and cleanup against Development PostgreSQL before an external effect is
+enabled. The current REV-011D execution order intentionally delivers only
+provider-independent contracts and deterministic reference adapters.
 
 Reference: `docs/conversation/TRANSACTION_OUTBOX_IDEMPOTENCY.md`.
 
@@ -68,13 +70,19 @@ Reference: `docs/conversation/TRANSACTION_OUTBOX_IDEMPOTENCY.md`.
 
 - REV-011B MUST make expected version, immutable event sequence, and duplicate
   command semantics executable domain contracts.
-- REV-011D MUST implement forced-RLS persistence, idempotency, outbox leasing,
-  reconciliation, bounded pagination, and recovery tests.
+- REV-011D MUST implement provider-independent persistence, idempotency,
+  transaction, outbox, audit, mapping, and reference-adapter contracts.
+- Forced-RLS adapters, leases, reconciliation, bounded pagination, and
+  recovery infrastructure require a later explicit execution order before any
+  external effect is enabled.
 - Retention duration configuration MUST wait for legal/privacy approval.
 
 ## Implementation Status
 
 Architecture accepted. Completed REV-011B implements expected-version commands,
 immutable ordered events, duplicate contracts, stale-action failures, and
-deterministic replay in memory. Migrations, repositories, outbox workers, and
-external effects remain unimplemented. Acceptance does not authorize REV-011D.
+deterministic replay in memory. REV-011D is Complete with repository
+contracts, explicit transaction boundaries, deterministic idempotency,
+validated outbox state, immutable audit, persistence mappings, and an
+in-memory reference adapter. Migrations, production adapters, outbox workers,
+and external effects remain unimplemented.

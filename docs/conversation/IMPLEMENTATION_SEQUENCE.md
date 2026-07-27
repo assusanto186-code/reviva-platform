@@ -51,28 +51,34 @@ authority is demonstrably narrower than global/staff policy.
 
 ## REV-011D — Persistence, Immutable Events, Idempotency, and Outbox
 
-Implementation status: Ready to Start — implementation has not started.
+Implementation status: Complete.
 
-Scope: reviewed migrations and PostgreSQL adapters for aggregate projection,
-messages/events, authorization evidence, usage reservations, idempotency, and
-outbox lifecycle.
+Scope: provider-independent event, projection, snapshot, idempotency,
+transaction, outbox, audit, and persistence-mapping contracts, plus a
+deterministic in-memory reference adapter.
 
-Prerequisites: REV-011B/C, accepted ADR-006, configured retention within pending
-legal/privacy durations, accepted pagination contract, and clean
-migration-rebuild gate.
+Prerequisites: completed REV-011B/C, accepted ADR-006, and a clean local
+REV-011C checkpoint.
 
-Outputs: forced-RLS schema/adapters, cursor queries, expected-version writes,
-worker-independent outbox contracts and recovery operations.
+Outputs: append-only event streams, rebuildable projections, optional verified
+snapshots, expected-version writes, deterministic idempotency fingerprints,
+explicit atomic transactions, worker-independent outbox lifecycle, immutable
+audit entries, DTO mappers, and reference adapters.
 
-Tests: two-tenant RLS, atomic projection/event/audit/outbox, concurrency,
-dedupe, lease/retry/dead-letter/reconciliation, append immutability, cleanup.
+Tests: tenant isolation, atomic projection/event/idempotency/audit/outbox
+writes, concurrency, dedupe, replay equivalence, append immutability,
+commit/rollback, transaction closure, and outbox transitions.
 
-Non-goals: running background worker or external effect.
+Non-goals: PostgreSQL, Supabase, ORM, migrations, production adapters, running
+workers, schedulers, brokers, external effects, providers, HTTP, or UI.
 
-Acceptance: hosted Development verification passes and existing REV-009/010
-gates remain green.
+Acceptance: the Source Acceptance Gate is green. Existing hosted gates run once
+as infrastructure regression checks; external connectivity timeouts may remain
+Pending without changing source acceptance.
 
 ## REV-011E — Provider Adapter and Structured-output Runtime
+
+Implementation status: Not Started.
 
 Scope: one provider adapter behind `AIProviderPort`, deterministic fake,
 structured schema validation, prompt/policy bundles, budget reservation and

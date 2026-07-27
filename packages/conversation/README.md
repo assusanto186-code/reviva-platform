@@ -4,8 +4,9 @@ Pure, deterministic conversation and authorization domain for Emma. REV-011B
 keeps the aggregate, commands, events, policies, failures, transition engine,
 and event replay free from infrastructure and vendor concerns. REV-011C adds a
 pure deny-by-default capability evaluator and closed tool registry without
-executing tools. REV-011C is Complete; REV-011D is Ready to Start but has not
-started.
+executing tools. REV-011C is Complete. REV-011D is Complete with
+provider-independent persistence contracts and a deterministic in-memory
+reference adapter under CTO review.
 
 ## Boundary
 
@@ -93,6 +94,36 @@ confirmation/approval policy, effect classification, and contract references.
 Unknown tools, arbitrary fields, provider metadata, and execution functions are
 rejected. Registry authorization returns a decision only.
 
+## Persistence and Reliable-execution Contracts
+
+Event history is the authoritative source of conversation state.
+`ConversationEventRepository` enforces tenant scope, append-only writes,
+contiguous ordering, and expected-version concurrency. Projections are
+materialized views that can be rebuilt from events. Snapshots are optional,
+integrity checked, and never required for correctness; snapshot-assisted and
+full replay must converge.
+
+Idempotency keys are tenant, actor, and operation scoped. Canonical
+fingerprints are stable across object-key ordering, and the original payload is
+not stored. A reused key with a different fingerprint fails closed.
+
+Explicit `TransactionContext` objects coordinate event, projection, snapshot,
+idempotency, outbox, and audit repositories. Commit is atomic in the reference
+adapter; rollback exposes no partial writes. Closed transactions and hidden
+nested transactions are rejected.
+
+Outbox messages are immutable transport records distinct from domain and audit
+events. The contract supports deterministic pending retrieval,
+claim/failure/retry/publish transitions, but no publisher, polling loop,
+scheduler, broker, or external delivery. The reliability model is atomic local
+persistence, idempotent processing, future at-least-once delivery, and
+duplicate-safe consumers—not distributed exactly-once delivery.
+
+The exported in-memory implementation is reference/test-only. It is not
+durable, not safe for multiple processes, and not a production database
+adapter. It performs no environment read, I/O, network call, or clock/ID
+generation.
+
 ## Tests
 
 ```powershell
@@ -108,3 +139,5 @@ The assessed state/command matrix is documented in
 `docs/conversation/STATE_MACHINE_IMPLEMENTATION.md`.
 The capability, authorization, and registry policy is documented in
 `docs/conversation/CAPABILITY_AND_TOOL_POLICY.md`.
+The persistence boundary is documented in
+`docs/conversation/PERSISTENCE_CONTRACTS.md`.

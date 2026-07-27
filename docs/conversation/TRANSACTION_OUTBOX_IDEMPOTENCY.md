@@ -2,6 +2,13 @@
 
 Status: REV-011A Complete — accepted architecture contract resolving AUD-014
 
+REV-011D implementation note: the current provider-independent reference
+contract uses the minimal deterministic lifecycle `Pending → Processing →
+Published|Failed`, with `Failed → Processing` for an explicitly due retry.
+Leases, expiry, reconciliation, dead-letter operations, and external handlers
+remain requirements for a future production infrastructure milestone and are
+not implemented by REV-011D.
+
 ## Concurrency Decision
 
 Use a hybrid model:

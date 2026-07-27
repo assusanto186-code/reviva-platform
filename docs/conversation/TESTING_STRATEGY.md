@@ -121,12 +121,25 @@ linked database lint, and migration synchronization.
 
 ### REV-011D
 
-- Migrations reproduce from zero and remain synchronized.
-- Forced RLS, pagination, event/projection atomicity, concurrency, idempotency,
-  outbox lease/retry/dead-letter/recovery tests pass on PostgreSQL.
-- Failure cleanup leaves no orphan fake data.
+- Strict TypeScript and deterministic in-memory contract suites pass.
+- Append-only streams, projection rebuild, snapshot equivalence, optimistic
+  conflicts, idempotency, transaction atomicity, outbox lifecycle, immutable
+  audit, DTO validation, and tenant isolation are covered.
+- Rollback leaves no partial reference data and closed transactions cannot be
+  reused.
+- Existing hosted gates remain regression checks; REV-011D introduces no
+  migration or production database adapter.
+
+Implementation evidence: the deterministic reference suite covers event load
+and append, full and snapshot-assisted replay, projection/snapshot
+compare-and-set, canonical fingerprints, duplicate outcomes, coordinated
+commit and rollback, concurrent writers, outbox claim/failure/retry/publish,
+audit ordering and safety, mapping validation, and explicit tenant boundaries.
+Exact counts are reported by the current quality gate.
 
 ### REV-011E
+
+Implementation status: Not Started.
 
 - Fake provider and provider adapter contract suites pass.
 - Structured output, timeout, cancellation, usage, and safe retry pass.

@@ -1,6 +1,6 @@
 # Reviva Project Status
 
-Report date: 2026-07-23
+Report date: 2026-07-27
 
 Status: Active Development
 
@@ -14,7 +14,9 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 REV-001 through REV-011C are complete. ADR-004 through ADR-006 are accepted.
 REV-011C's deterministic authorization evaluator and closed, non-executing
-tool registry passed the complete local and hosted quality gate. Reviva has a verified web,
+tool registry passed the complete local and hosted quality gate. REV-011D is
+Complete with provider-independent reliable-persistence contracts and an
+in-memory reference implementation. Reviva has a verified web,
 tenant, PostgreSQL, and authentication foundation, but it is not yet a
 conversational AI Employee or a production-ready public product.
 
@@ -38,6 +40,7 @@ milestones.
 - ADR-004, ADR-005, and ADR-006: Accepted
 - REV-011B conversation domain: Complete
 - REV-011C capability authorization and tool registry: Complete
+- REV-011D persistence contracts and reference adapter: Complete
 
 ## Completed Milestones
 
@@ -153,14 +156,26 @@ Design documents are maintained under `docs/conversation/`.
   passed. Production role-to-capability mapping remains pending trusted
   application integration.
 
+## Completed Milestone Detail
+
+### REV-011D — Persistence, Immutable Events, Idempotency, and Outbox (Complete)
+
+- `@reviva/conversation` defines tenant-scoped event, projection, snapshot,
+  idempotency, transaction, outbox, audit, and persistence-mapping contracts.
+- A deterministic copy-on-write in-memory reference adapter verifies
+  append-only history, optimistic concurrency, atomic commit/rollback,
+  duplicate-safe idempotency, validated outbox transitions, audit immutability,
+  and tenant isolation.
+- Event streams remain authoritative. Projections are rebuildable and snapshots
+  are optional; full replay and snapshot-assisted replay converge.
+- The adapter is test/reference-only: it is not durable or multi-process safe.
+  No migration, production database adapter, outbox worker, provider
+  integration, tool execution, endpoint, or UI is part of REV-011D.
+
 ## Current Work
 
-### REV-011D — Persistence, Immutable Events, Idempotency, and Outbox (Ready to Start)
-
-- REV-011D is authorized as the next milestone but its implementation has not
-  started.
-- No conversation persistence, migration, outbox worker, provider integration,
-  tool execution, endpoint, or UI has been introduced by REV-011C.
+No implementation milestone is active after REV-011D closure. REV-011E is Not
+Started.
 
 ## Future Milestones
 
@@ -170,6 +185,7 @@ Design documents are maintained under `docs/conversation/`.
   traces, latency, cost, and quality metrics.
 - REV-011E through REV-011G remain unimplemented. Each phase requires its own
   execution order and acceptance gate.
+- REV-011E is Not Started.
 
 ### REV-012 — Voice and character runtime
 
@@ -201,5 +217,5 @@ Design documents are maintained under `docs/conversation/`.
 
 ## Next Authorized Step
 
-Begin REV-011D only under its dedicated execution order. REV-011D is Ready to
-Start; its implementation has not started.
+Begin REV-011E only under its dedicated execution order. REV-011E remains Not
+Started at this closure point.

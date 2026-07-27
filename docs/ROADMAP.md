@@ -6,7 +6,7 @@ Status: Active
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-23
+Last reviewed: 2026-07-27
 
 ## Source of Truth
 
@@ -36,10 +36,11 @@ Completed engineering foundations include:
 
 ## Next Planned Milestone
 
-REV-011D is Ready to Start but has not started. REV-011D through REV-011G
-require separate execution orders and acceptance gates. No
-conversation persistence, provider integration, tool execution, API, or UI has
-started.
+REV-011D is Complete with provider-independent conversation persistence
+contracts and a deterministic in-memory reference adapter. It introduces no
+production persistence, migration, provider integration, tool execution,
+worker, API, or UI. REV-011E is Not Started; later phases require separate
+execution orders and acceptance gates.
 
 The remaining sequence is:
 

@@ -26,7 +26,9 @@ REV-001 through REV-011C are complete. The pure
 `@reviva/conversation` aggregate, state machine, commands, events, policies,
 failures, and replay engine are implemented without persistence or provider
 integration. REV-011C adds deterministic capability authorization and a closed,
-non-executing tool registry. REV-011D is Ready to Start but has not started. See
+non-executing tool registry. REV-011D is Complete with provider-independent
+persistence, idempotency, transaction, outbox, and audit contracts plus a
+deterministic in-memory reference adapter; no production persistence exists. See
 [`docs/PROJECT_STATUS.md`](./docs/PROJECT_STATUS.md) for authoritative milestone
 status, [`docs/LAUNCH_ROADMAP.md`](./docs/LAUNCH_ROADMAP.md) for delivery order,
 and

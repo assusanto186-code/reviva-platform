@@ -1,15 +1,16 @@
 # Conversation State Machine Implementation
 
-Status: REV-011B Complete; REV-011C Complete; REV-011D Ready to Start
+Status: REV-011B Complete; REV-011C Complete; REV-011D Complete
 
-Last reviewed: 2026-07-23
+Last reviewed: 2026-07-27
 
 ## Scope
 
 `@reviva/conversation` implements the accepted REV-011A deterministic domain
-and pure authorization policy. It is in-memory only. It does not implement
-persistence, tool execution, AI providers, application orchestration, delivery,
-API, or UI.
+and pure authorization policy. REV-011D adds persistence contracts and a
+deterministic in-memory reference adapter without I/O. The package does not
+implement production persistence, tool execution, AI providers, application
+orchestration, delivery, API, or UI.
 
 ## Mechanics
 
@@ -96,7 +97,8 @@ unbounded ID list.
 
 REV-011B itself remains the completed state-machine milestone. REV-011C adds
 authorization eligibility only and is Complete; no tool runtime is
-implemented. REV-011D is Ready to Start but has not started.
+implemented. REV-011D is Complete; the state machine remains authoritative
+and persistence repositories do not duplicate its business rules.
 
 ## Audit Safeguard Status
 

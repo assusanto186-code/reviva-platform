@@ -133,6 +133,21 @@ tools, noncanonical capabilities, arbitrary/provider-specific fields, and
 execution functions. Tool authorization returns only a typed decision; REV-011C
 does not execute code or call an adapter.
 
+## REV-011D Persistence Boundary
+
+Conversation persistence operations require an explicit transaction context
+and tenant identity. The reference adapter rejects cross-tenant contexts,
+stale expected versions, transaction reuse, hidden nesting, malformed
+snapshots, mismatched idempotency payloads, and invalid outbox transitions.
+Event and audit histories are append-only. Idempotency stores only a
+deterministic fingerprint, not the source request payload.
+
+Audit metadata and outbox payload validation reject function values and
+credential-bearing keys or recognizable secret formats. Timestamps and
+identifiers are caller supplied; the package reads no environment, clock,
+filesystem, network, or database. The in-memory adapter provides no durability,
+multi-process exclusion, encryption, backup, or production isolation guarantee.
+
 The web Auth configuration now validates a Supabase project root origin without
 normalizing or mutating it. Route-function and hosted Auth verification remain
 green. The AUD-005 domain requirement is satisfied. Full browser/HTTP Auth

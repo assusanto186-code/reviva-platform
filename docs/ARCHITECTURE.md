@@ -76,6 +76,14 @@ transactions, restricted PostgreSQL credentials, forced RLS, tenant-aware
 constraints, append-only audit records, and optimistic concurrency where
 stale human edits can occur.
 
+REV-011D adds infrastructure-independent conversation persistence contracts
+inside `@reviva/conversation`. Immutable event streams are authoritative;
+materialized projections are rebuildable; optional snapshots accelerate replay
+without changing correctness. Explicit transaction contexts coordinate event,
+projection, snapshot, idempotency, outbox, and audit writes. The included
+copy-on-write in-memory adapter is a deterministic contract reference only,
+not durable production infrastructure.
+
 ### AI runtime
 
 REV-011 and later will introduce orchestration behind application interfaces.
@@ -87,8 +95,10 @@ REV-011A documents the accepted conversational boundaries under
 `docs/conversation/` and accepted ADR-004 through ADR-006. REV-011B implements
 the pure `@reviva/conversation` aggregate and state machine in memory. REV-011C
 is Complete with deterministic capability authorization and a closed
-provider-agnostic registry. Persistence, provider integration, tool execution,
-application orchestration, endpoints, and UI remain unimplemented.
+provider-agnostic registry. REV-011D is Complete with conversation
+persistence contracts and an in-memory reference adapter. Production
+persistence, provider integration, tool execution, application orchestration,
+endpoints, and UI remain unimplemented.
 
 ## Request Flow
 
@@ -122,7 +132,7 @@ processing.
   context, restricted RLS-backed access, logout, and local session
   invalidation. It is not browser end-to-end coverage. REV-011A architecture and
   REV-011B pure domain implementation and REV-011C authorization are Complete.
-  REV-011D is Ready to Start but has not started.
+  REV-011D is Complete. REV-011E is Not Started.
 
 ## Decision Records
 

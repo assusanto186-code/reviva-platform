@@ -73,5 +73,6 @@ Architecture accepted. REV-011B completed the pure `@reviva/conversation`
 domain and deterministic tests. REV-011C completed capability authorization
 and the closed non-executing tool registry. The application orchestration
 layer, infrastructure adapters, and later runtime remain unimplemented.
-REV-011D is Ready to Start under a separate execution order but has not
-started.
+REV-011D is Complete with provider-independent persistence contracts and a
+deterministic in-memory reference adapter. No production infrastructure
+adapter has started.
