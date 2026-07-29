@@ -70,4 +70,5 @@ outbox polling or publishing, retry scheduling, dead-letter infrastructure,
 external effects, provider calls, booking integrations, endpoints, streaming,
 or UI. Those capabilities require later approved milestones.
 
-REV-011E is Not Started.
+REV-011E is Complete with a provider-independent execution layer; this
+persistence reference remains unchanged and is not used by the pure engine.

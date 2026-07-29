@@ -6,7 +6,7 @@ Status: Active
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-27
+Last reviewed: 2026-07-29
 
 ## Source of Truth
 
@@ -17,7 +17,7 @@ Milestone status is maintained only in
 
 ## Current Repository State
 
-REV-001 through REV-011C are complete. ADR-004 through ADR-006 are accepted.
+REV-001 through REV-011E are complete. ADR-004 through ADR-006 are accepted.
 The deterministic, in-memory conversation domain is implemented without
 persistence, providers, tool execution, API, or UI. REV-011C completed pure
 capability authorization and a closed non-executing registry.
@@ -38,9 +38,13 @@ Completed engineering foundations include:
 
 REV-011D is Complete with provider-independent conversation persistence
 contracts and a deterministic in-memory reference adapter. It introduces no
-production persistence, migration, provider integration, tool execution,
-worker, API, or UI. REV-011E is Not Started; later phases require separate
-execution orders and acceptance gates.
+production persistence, migration, tool execution, worker, API, or UI.
+REV-011E is Complete with the provider-independent `@reviva/execution`
+orchestrator, deterministic reference providers, structured-output validation,
+explicit provider policy, bounded retry/repair/fallback, reconciliation, and
+mandatory usage ceilings. It includes no real provider SDK or inference.
+REV-011F is Ready to Start but its implementation has not started; later
+phases require separate execution orders and acceptance gates.
 
 The remaining sequence is:
 
@@ -58,7 +62,7 @@ Production domain activation, Vercel ownership, durable lead delivery, legal
 approval, monitoring, recovery evidence, and operational ownership remain
 release inputs. They are tracked as launch readiness and REV-015 through
 REV-017 work; they do not change the completed status of REV-001 through
-REV-011A.
+REV-011E.
 
 Only fake or demonstration data is permitted before the appropriate privacy,
 security, and pilot approvals.

@@ -148,6 +148,28 @@ identifiers are caller supplied; the package reads no environment, clock,
 filesystem, network, or database. The in-memory adapter provides no durability,
 multi-process exclusion, encryption, backup, or production isolation guarantee.
 
+## REV-011E Execution Boundary
+
+`@reviva/execution` accepts only already-resolved tenant, conversation, actor,
+delegation, capability, tool-registry, provider-policy, and budget facts. It
+does not read identity, membership, environment, secrets, database state, or
+browser input. Required purpose capability and handoff restrictions fail
+closed before inference.
+
+Provider output is untrusted. Exact versioned validation rejects unknown or
+missing fields, unsupported versions/enums, noncanonical arguments, unknown
+tools, capability mismatch, unauthorized capability, disallowed actor,
+incorrect confirmation/approval markers, and executable values. Providers
+cannot claim patient confirmation or human approval. Completed results never
+contain raw provider payload or hidden chain-of-thought.
+
+Only typed definitive transient failures may retry, capped at two retries. One
+structured-output repair has a separate budget. Explicit fallback order and
+mandatory token/cost/attempt ceilings prevent unbounded execution. Outcomes
+that may have been accepted by a provider require reconciliation and are not
+blindly retried. REV-011E performs no network call, persistence, outbox write,
+or tool execution and contains no real provider SDK or credential reader.
+
 The web Auth configuration now validates a Supabase project root origin without
 normalizing or mutating it. Route-function and hosted Auth verification remain
 green. The AUD-005 domain requirement is satisfied. Full browser/HTTP Auth

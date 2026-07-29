@@ -76,29 +76,38 @@ Acceptance: the Source Acceptance Gate is green. Existing hosted gates run once
 as infrastructure regression checks; external connectivity timeouts may remain
 Pending without changing source acceptance.
 
-## REV-011E — Provider Adapter and Structured-output Runtime
+## REV-011E — Execution Engine and AI Provider Abstraction
 
-Implementation status: Not Started.
+Implementation status: Complete.
 
-Scope: one provider adapter behind `AIProviderPort`, deterministic fake,
-structured schema validation, prompt/policy bundles, budget reservation and
-usage settlement.
+Scope: provider-independent `@reviva/execution`, trusted immutable requests,
+closed purposes, planner/provider contracts, exact versioned output validation,
+deterministic provider/model selection, maximum-two retry policy, one repair,
+explicit fallback, uncertain-outcome reconciliation, mandatory usage/cost
+ceilings, and data-only tool proposals.
 
-Prerequisites: REV-011B–D, provider/model evaluation, configured values for both
-mandatory cost ceilings, and an approved evaluation baseline.
+Prerequisites: REV-011B–D are Complete. Production provider/model evaluation,
+prompt bundles, provider credentials, and real monetary policy resolution are
+not prerequisites for the pure engine and remain future composition work.
 
-Outputs: server-only adapter, cancellation/deadline handling, metadata
-translation, safe invalid-output fallback.
+Outputs: pure orchestration contracts and engine plus deterministic scripted
+reference adapters. Provider-native types do not cross the contract.
 
-Tests: provider contract, fake provider, malformed/hostile output, retry,
-cancellation, usage, prompt snapshots/evaluations, sandbox compatibility.
+Tests: request construction, purpose/capability/handoff denial, provider/model
+selection and fallback order, exact schemas, repair, retry, uncertainty,
+budgets, usage validation, proposal integrity, and adapter failure containment.
 
-Non-goals: autonomous live tool effects, multi-provider fallback, voice.
+Non-goals: real provider SDK/inference, prompt bundles/evaluations, tool
+execution, persistence, migrations, background workers, HTTP/API, streaming,
+UI, booking integration, or voice.
 
-Acceptance: provider-native types do not cross adapter; structured proposals
-cannot bypass state/capability/tool policy.
+Acceptance: structured proposals cannot bypass capability/tool policy; providers
+cannot authorize, execute, persist, select themselves, or control orchestration.
+The source and hosted gates passed and CTO approval closed REV-011E.
 
 ## REV-011F — Human Handoff and Web/API Integration
+
+Implementation status: Ready to Start; implementation has not started.
 
 Scope: handoff orchestration, authenticated conversation endpoints, client
 rendering boundary, safe text streaming and cancellation.

@@ -71,8 +71,19 @@ References: `docs/conversation/CONVERSATION_ARCHITECTURE.md` and
 
 Architecture accepted. REV-011B completed the pure `@reviva/conversation`
 domain and deterministic tests. REV-011C completed capability authorization
-and the closed non-executing tool registry. The application orchestration
-layer, infrastructure adapters, and later runtime remain unimplemented.
+and the closed non-executing tool registry.
 REV-011D is Complete with provider-independent persistence contracts and a
 deterministic in-memory reference adapter. No production infrastructure
 adapter has started.
+
+REV-011E refines the separately owned provider-inference orchestration boundary
+into focused package `@reviva/execution` instead of a broad
+`@reviva/application` hub. The package depends on `@reviva/conversation`; the
+domain has no reverse dependency. The execution engine owns declared
+provider/model selection, structured-output validation, retry, repair,
+fallback, uncertain-outcome classification, and budget enforcement. Providers
+perform inference only. Authorization remains trusted input and tool execution
+remains outside providers and the engine. General application use-case,
+transaction, endpoint, and delivery orchestration remains unimplemented.
+REV-011E is Complete after passing CTO review and its source and hosted quality
+gates.

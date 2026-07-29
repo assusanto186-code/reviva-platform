@@ -139,13 +139,24 @@ Exact counts are reported by the current quality gate.
 
 ### REV-011E
 
-Implementation status: Not Started.
+Implementation status: Complete.
 
-- Fake provider and provider adapter contract suites pass.
-- Structured output, timeout, cancellation, usage, and safe retry pass.
-- Approved prompt/evaluation baseline passes before sandbox calls.
+- Deterministic request and engine suites cover trusted construction,
+  purpose/capability/handoff denial, provider/model policy, fallback order,
+  schema shape/enums/versions, one repair, maximum two retries, definitive
+  versus uncertain timeout, reconciliation, token/cost/attempt ceilings,
+  provider usage validation, and tool-proposal integrity.
+- Scripted provider/planner references use no clock, randomness, filesystem,
+  environment, database, network, or real AI.
+- Provider exceptions fail closed and raw unvalidated payloads never appear in
+  completed results.
+- Prompt snapshots/evaluations and external-provider sandbox compatibility are
+  deferred because REV-011E introduces no prompt bundle or real provider
+  adapter.
 
 ### REV-011F
+
+Implementation status: Ready to Start; implementation has not started.
 
 - Handoff races and ownership tests pass.
 - Authenticated route-level E2E proves current user/context, safe streaming,

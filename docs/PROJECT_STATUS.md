@@ -1,6 +1,6 @@
 # Reviva Project Status
 
-Report date: 2026-07-27
+Report date: 2026-07-29
 
 Status: Active Development
 
@@ -12,11 +12,14 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ## Executive Summary
 
-REV-001 through REV-011C are complete. ADR-004 through ADR-006 are accepted.
+REV-001 through REV-011E are complete. ADR-004 through ADR-006 are accepted.
 REV-011C's deterministic authorization evaluator and closed, non-executing
 tool registry passed the complete local and hosted quality gate. REV-011D is
 Complete with provider-independent reliable-persistence contracts and an
-in-memory reference implementation. Reviva has a verified web,
+in-memory reference implementation. REV-011E is Complete with a
+provider-independent execution engine, structured-output validation, bounded
+retry/repair/fallback, reconciliation contracts, mandatory budgets, and
+data-only tool proposals. Reviva has a verified web,
 tenant, PostgreSQL, and authentication foundation, but it is not yet a
 conversational AI Employee or a production-ready public product.
 
@@ -31,7 +34,7 @@ milestones.
 - Branch: `main`
 - Application: `apps/web`
 - Internal packages: `@reviva/domain`, `@reviva/auth`, `@reviva/postgres`, and
-  `@reviva/conversation`
+  `@reviva/conversation`, and `@reviva/execution`
 - Database workspace: `supabase/`
 - Migration count: four
 - Hosted PostgreSQL integration tests: 16 passing
@@ -41,6 +44,8 @@ milestones.
 - REV-011B conversation domain: Complete
 - REV-011C capability authorization and tool registry: Complete
 - REV-011D persistence contracts and reference adapter: Complete
+- REV-011E provider-independent execution engine: Complete
+- REV-011F web/API integration: Ready to Start; implementation has not started
 
 ## Completed Milestones
 
@@ -172,20 +177,35 @@ Design documents are maintained under `docs/conversation/`.
   No migration, production database adapter, outbox worker, provider
   integration, tool execution, endpoint, or UI is part of REV-011D.
 
-## Current Work
+### REV-011E — Execution Engine and AI Provider Abstraction (Complete)
 
-No implementation milestone is active after REV-011D closure. REV-011E is Not
-Started.
+- `@reviva/execution` implements a provider-independent orchestrator with
+  trusted immutable requests, closed execution purposes, explicit
+  provider/model policy, typed results/failures, and mandatory token, attempt,
+  fallback, repair, context, tool-proposal, and cost ceilings.
+- Versioned planner output is validated exactly. One repair and at most two
+  provider retries are separate budgets; fallback order is explicit and
+  uncertain accepted outcomes require reconciliation.
+- The engine returns data-only `ToolProposal` objects after closed-registry,
+  capability, actor, confirmation, and approval validation. It never executes
+  a tool or mutates/persists conversation state.
+- Deterministic scripted providers are test/reference-only. No real provider
+  SDK, network inference, environment configuration, migration, endpoint,
+  worker, UI, or REV-011F implementation is included.
+- Production composition-root configuration, real provider adapters, provider
+  evaluations, and prompt bundles remain pending.
+- The source and hosted quality gates passed, CTO approval was recorded, and
+  REV-011E is Complete.
 
 ## Future Milestones
 
-### REV-011E through REV-011G — Remaining conversational core implementation
+### REV-011F through REV-011G — Remaining conversational core implementation
 
 - Text-first orchestration, deterministic state, safe behavior, evaluation,
   traces, latency, cost, and quality metrics.
-- REV-011E through REV-011G remain unimplemented. Each phase requires its own
+- REV-011F through REV-011G remain unimplemented. Each phase requires its own
   execution order and acceptance gate.
-- REV-011E is Not Started.
+- REV-011F is Ready to Start; its implementation has not started.
 
 ### REV-012 — Voice and character runtime
 
@@ -217,5 +237,5 @@ Started.
 
 ## Next Authorized Step
 
-Begin REV-011E only under its dedicated execution order. REV-011E remains Not
-Started at this closure point.
+REV-011F is Ready to Start under a dedicated execution order. REV-011E is
+Complete; REV-011F implementation has not started.

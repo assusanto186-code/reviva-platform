@@ -6,7 +6,9 @@ and event replay free from infrastructure and vendor concerns. REV-011C adds a
 pure deny-by-default capability evaluator and closed tool registry without
 executing tools. REV-011C is Complete. REV-011D is Complete with
 provider-independent persistence contracts and a deterministic in-memory
-reference adapter under CTO review.
+reference adapter. `@reviva/execution` depends on this package for trusted
+capability, registry, state, identifier, and canonical-value contracts; the
+reverse dependency is prohibited.
 
 ## Boundary
 

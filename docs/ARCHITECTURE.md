@@ -86,7 +86,6 @@ not durable production infrastructure.
 
 ### AI runtime
 
-REV-011 and later will introduce orchestration behind application interfaces.
 Models cannot select a tenant, grant permissions, bypass policies, or invoke an
 action directly. Model output is untrusted until validated by deterministic
 policy and schema boundaries.
@@ -96,9 +95,17 @@ REV-011A documents the accepted conversational boundaries under
 the pure `@reviva/conversation` aggregate and state machine in memory. REV-011C
 is Complete with deterministic capability authorization and a closed
 provider-agnostic registry. REV-011D is Complete with conversation
-persistence contracts and an in-memory reference adapter. Production
-persistence, provider integration, tool execution, application orchestration,
-endpoints, and UI remain unimplemented.
+persistence contracts and an in-memory reference adapter.
+
+REV-011E is Complete with `@reviva/execution`, which depends on
+`@reviva/conversation` and owns provider-independent inference orchestration.
+It validates trusted requests, selects only declared provider/model candidates,
+enforces schema, retry, repair, fallback, uncertainty, and usage policy, and
+returns typed outcomes or a data-only `ToolProposal`. Providers perform
+inference only and cannot authorize, mutate domain state, persist, execute
+tools, or select retry/fallback policy. The deterministic scripted adapters are
+test-only. Production persistence, real provider adapters, tool execution,
+endpoints, workers, and UI remain unimplemented.
 
 ## Request Flow
 
@@ -132,7 +139,8 @@ processing.
   context, restricted RLS-backed access, logout, and local session
   invalidation. It is not browser end-to-end coverage. REV-011A architecture and
   REV-011B pure domain implementation and REV-011C authorization are Complete.
-  REV-011D is Complete. REV-011E is Not Started.
+  REV-011D and REV-011E are Complete. REV-011F is Ready to Start but its
+  implementation has not started.
 
 ## Decision Records
 
