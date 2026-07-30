@@ -196,8 +196,11 @@ are invalidated when the coordinator callback ends.
 
 ### Hosted verification — 2026-07-17
 
-The three ordered migrations are synchronized with the linked Supabase
-Development database and remote lint reports no schema errors. The restricted
+At this verification checkpoint, the first three ordered migrations were
+synchronized with the linked Supabase Development database and remote lint
+reported no schema errors. REV-010 subsequently added
+`202607180001_auth_identity_resolution.sql`; the current synchronized total is
+four. The restricted
 `reviva_app` role was authenticated through Supavisor transaction mode with
 prepared statements disabled and its non-administrative attributes were
 verified from PostgreSQL catalogs. Thirteen real-database integration tests

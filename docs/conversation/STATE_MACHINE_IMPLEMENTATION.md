@@ -96,9 +96,9 @@ unbounded ID list.
   any tool handler or execution runtime.
 
 REV-011B itself remains the completed state-machine milestone. REV-011C adds
-authorization eligibility only and is Complete; no tool runtime is
-implemented. REV-011D is Complete; the state machine remains authoritative
-and persistence repositories do not duplicate its business rules.
+authorization eligibility only and is Complete. REV-011D is Complete.
+REV-011F now invokes this state machine only through typed commands; its Tool
+Runtime and persistence composition do not duplicate business rules.
 
 ## Audit Safeguard Status
 

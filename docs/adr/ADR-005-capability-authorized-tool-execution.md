@@ -86,4 +86,7 @@ command capability requirements. REV-011C is Complete with one canonical
 capability vocabulary, deterministic authority intersection, typed decisions,
 and a closed provider-agnostic registry. The
 registry contains no execution functions and the evaluator performs no external
-effect. Tool runtime and adapters remain unimplemented and unauthorized.
+effect. REV-011F now implements a separate `@reviva/runtime` boundary that
+revalidates this policy before invoking a closed handler. Its initial handlers
+and adapters are deterministic deferred references only; no live external
+effect or production adapter is authorized.

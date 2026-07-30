@@ -22,7 +22,7 @@ services/
 
 ## Status
 
-REV-001 through REV-011D are complete. The pure
+REV-001 through REV-011F are complete. The pure
 `@reviva/conversation` aggregate, state machine, commands, events, policies,
 failures, and replay engine are implemented without persistence or provider
 integration. REV-011C adds deterministic capability authorization and a closed,
@@ -32,7 +32,14 @@ deterministic in-memory reference adapter; no production persistence exists.
 REV-011E is Complete with a provider-independent `@reviva/execution` engine,
 strict structured output, bounded retry/repair/fallback, reconciliation,
 mandatory usage ceilings, and data-only tool proposals. It has no real
-provider SDK, network inference, or tool execution. See
+provider SDK or network inference. REV-011F is Complete: `@reviva/runtime`
+adds closed handlers, independent
+authorization revalidation, exactly-once transaction/outbox coordination,
+normalized continuation, execution records, and controlled human handoff. Its
+adapters and initial booking handlers are deterministic references, not
+production integrations. Real AI, booking, and messaging providers and the
+production outbox worker remain deferred. The Release Candidate is Ready to
+Start, but its implementation has not started. See
 [`docs/PROJECT_STATUS.md`](./docs/PROJECT_STATUS.md) for authoritative milestone
 status, [`docs/LAUNCH_ROADMAP.md`](./docs/LAUNCH_ROADMAP.md) for delivery order,
 and

@@ -6,7 +6,7 @@ Status: Approved Foundation
 
 Owner: Reviva Engineering and Security
 
-Last reviewed: 2026-07-16
+Last reviewed: 2026-07-29
 
 ## Security Objectives
 
@@ -169,6 +169,36 @@ mandatory token/cost/attempt ceilings prevent unbounded execution. Outcomes
 that may have been accepted by a provider require reconciliation and are not
 blindly retried. REV-011E performs no network call, persistence, outbox write,
 or tool execution and contains no real provider SDK or credential reader.
+
+## REV-011F Tool Runtime and Handoff Boundary
+
+`@reviva/runtime` treats a validated `ToolProposal` as untrusted with respect to
+authority. Tenant, conversation, actor, version, state, tool/version,
+capability, delegation, handoff restriction, confirmation, human approval,
+timeout, and idempotency scope are revalidated immediately before execution.
+Unknown tools and handlers fail closed. Registry contents are explicit and
+immutable; request input cannot supply code, imports, handlers, SQL, commands,
+arbitrary URLs, or unrestricted headers.
+
+Runtime values use bounded, prototype-pollution-resistant canonicalization.
+Function values, credential-like keys, recognizable connection strings/private
+keys, cycles, non-plain objects, non-finite numbers, and excessive structures
+are rejected. Approved handlers validate exact operation argument shapes.
+Results, records, audit, and outbox contain only safe structured facts.
+
+One execution owns one explicit transaction. Tenant-scoped event, projection,
+snapshot, audit, idempotency, execution-record, result, and outbox writes
+commit or roll back together. Completed duplicates replay their stored result;
+mismatched fingerprints are denied; concurrent duplicates do not invoke the
+handler twice. Deferred work remains pending until a future worker delivers it.
+Uncertain synchronous effects require reconciliation and are never blindly
+retried.
+
+Handoff request and acceptance update the canonical Conversation projection,
+which pauses autonomous effects. Queue/assignment transitions are role-checked,
+and return to automation requires a human plus fresh delegation bound to the
+current Conversation version. Reference adapters are non-durable,
+single-process test infrastructure only.
 
 The web Auth configuration now validates a Supabase project root origin without
 normalizing or mutating it. Route-function and hosted Auth verification remain

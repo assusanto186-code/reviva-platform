@@ -17,10 +17,10 @@ Milestone status is maintained only in
 
 ## Current Repository State
 
-REV-001 through REV-011E are complete. ADR-004 through ADR-006 are accepted.
-The deterministic, in-memory conversation domain is implemented without
-persistence, providers, tool execution, API, or UI. REV-011C completed pure
-capability authorization and a closed non-executing registry.
+REV-001 through REV-011F are complete. ADR-004 through ADR-006 are accepted.
+REV-011F's deterministic Tool Runtime, closed executable registry,
+transactional application coordination, and human-handoff lifecycle have
+passed CTO review.
 
 Completed engineering foundations include:
 
@@ -43,8 +43,12 @@ REV-011E is Complete with the provider-independent `@reviva/execution`
 orchestrator, deterministic reference providers, structured-output validation,
 explicit provider policy, bounded retry/repair/fallback, reconciliation, and
 mandatory usage ceilings. It includes no real provider SDK or inference.
-REV-011F is Ready to Start but its implementation has not started; later
-phases require separate execution orders and acceptance gates.
+REV-011F is Complete under its dedicated execution order. It adds no
+production provider, gateway, worker, database adapter, migration, endpoint,
+or UI. AUD-005 remains open pending a real browser/HTTP harness. The Release
+Candidate is Ready to Start under a separate execution order, but its
+implementation has not started. An Execution Transcript is planned for that
+phase.
 
 The remaining sequence is:
 

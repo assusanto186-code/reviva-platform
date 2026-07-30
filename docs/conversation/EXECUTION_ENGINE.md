@@ -105,3 +105,5 @@ Scripted providers/planners are deterministic test references only. They are
 not production adapters, real AI, or provider emulators. REV-011E includes no
 provider SDK, prompt bundle, live inference, persistence, migration, endpoint,
 streaming UI, background worker, real tool, voice runtime, or REV-011F work.
+REV-011F subsequently adds a separate provider-independent Tool Runtime; it
+does not change the REV-011E inference boundary.

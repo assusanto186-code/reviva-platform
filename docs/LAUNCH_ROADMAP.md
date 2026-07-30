@@ -46,7 +46,7 @@ Authoritative milestone status is maintained in
 | REV-008 | Publishable web and lead capture | Complete | Validated lead submission, consent, legal pages, search readiness, and documented deployment boundaries. |
 | REV-009 | Tenant and knowledge foundation | Complete | Tenant schema, transactional persistence, forced RLS, restricted runtime, immutable history, and hosted tests. |
 | REV-010 | Authentication and trusted tenant context | Complete | Supabase SSR session, identity mapping, active membership, trusted context, protected shell, logout, and hosted verification. |
-| REV-011 | Conversational core | REV-011A–E Complete; REV-011F Ready to Start | Deterministic domain, authorization, reliable-persistence contracts, and the provider-independent execution layer are implemented; REV-011F has not started. |
+| REV-011 | Conversational core | REV-011A–F Complete; REV-011G Planned | Domain, authorization, persistence contracts, execution, Tool Runtime, transactional application coordination, and handoff have passed their milestone gates. |
 | REV-012 | Voice and character runtime | Planned | Real-time listening and speaking, interruption, disclosure, consent, character policy, and voice evaluations. |
 | REV-013 | Controlled actions | Planned | Tenant-aware lead, availability, booking, confirmation, and notification actions through audited boundaries. |
 | REV-014 | Human operations | Planned | Operator inbox, handoff, takeover, summaries, assignment, resolution, and quality review. |
@@ -180,8 +180,8 @@ the Next.js routes. All 16 hosted PostgreSQL tests, hosted Auth integration,
 migration synchronization, and the final Production Gate passed. See
 `AUTHENTICATION.md`. REV-011A architecture and REV-011B pure domain
 implementation, REV-011C authorization, and REV-011D persistence contracts are
-Complete. REV-011E is Complete and REV-011F is Ready to Start but has not
-started.
+Complete. REV-011E and REV-011F are Complete. The Release Candidate is Ready
+to Start, but its implementation has not started.
 
 ## REV-011A — Conversation Architecture
 
@@ -207,8 +207,8 @@ explicit provider/model selection, bounded retry/repair/fallback,
 reconciliation requirements, usage ceilings, and data-only tool proposals.
 It contains deterministic reference adapters but no real provider integration,
 tool execution, background worker, endpoint, streaming UI, or booking
-integration. REV-011E is Complete. REV-011F is Ready to Start but has not
-started, and REV-011G remains unimplemented.
+integration. REV-011E and REV-011F are Complete, and REV-011G remains
+unimplemented.
 
 ## REV-011B — Conversation Domain and Deterministic State Machine
 
@@ -227,6 +227,31 @@ confirmation, approval, and handoff decisions; and validates a closed immutable
 registry. It deliberately contains no tool handlers, execution runtime,
 persistence, provider integration, routes, UI, or external effects. See
 `conversation/CAPABILITY_AND_TOOL_POLICY.md`.
+
+## REV-011F — Tool Runtime, Human Handoff, and Application Integration
+
+REV-011F is **Complete** following CTO technical review.
+`@reviva/runtime` independently revalidates trusted scope, current state,
+capability, delegation, confirmation, human approval, handoff, schema, timeout,
+and idempotency before invoking a statically registered handler. One explicit
+transaction coordinates applicable Conversation event/projection/snapshot,
+execution record, safe audit, idempotency result, and deferred outbox work.
+
+The initial booking creation and cancellation-request handlers are deterministic
+deferred references. External delivery is not claimed. The handoff lifecycle is
+tenant-scoped, role-checked, optimistic, and integrated with Conversation
+states so autonomous effects pause until an explicit fresh-delegation return.
+The reference persistence is non-durable and not production-safe.
+
+No migration, production database adapter, real provider/tool gateway, outbox
+worker, endpoint, streaming UI, operator dashboard, or voice work is included.
+AUD-005 remains open because no approved real browser/HTTP harness exists; the
+hosted Auth test is not represented as browser E2E. See
+`conversation/TOOL_RUNTIME.md`.
+
+The Release Candidate is Ready to Start under a separate execution order. Its
+implementation has not started, and an Execution Transcript is planned for
+that phase.
 
 ## Launch Gates
 

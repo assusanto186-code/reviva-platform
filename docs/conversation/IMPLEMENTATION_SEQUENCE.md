@@ -105,26 +105,36 @@ Acceptance: structured proposals cannot bypass capability/tool policy; providers
 cannot authorize, execute, persist, select themselves, or control orchestration.
 The source and hosted gates passed and CTO approval closed REV-011E.
 
-## REV-011F — Human Handoff and Web/API Integration
+## REV-011F — Tool Runtime, Human Handoff, and Application Integration
 
-Implementation status: Ready to Start; implementation has not started.
+Implementation status: Complete following CTO technical review.
 
-Scope: handoff orchestration, authenticated conversation endpoints, client
-rendering boundary, safe text streaming and cancellation.
+Scope: trusted runtime request/result contracts, a closed executable handler
+registry, authorization/confirmation/approval revalidation, exactly-once
+transaction coordination, normalized continuation, execution records, deferred
+outbox effects, controlled handoff, and an explicit composition root.
 
-Prerequisites: REV-011B–E and implementation configuration for queue routing,
-staffing, ownership, and the accepted provisional SLA defaults.
+Prerequisites: REV-011B–E. These are Complete.
 
-Outputs: server-side use-case composition, handoff queue adapter, route-level
-error contracts, minimal text conversation delivery.
+Outputs: pure `@reviva/runtime`, deterministic reference persistence/handlers,
+initial deferred booking creation and approved cancellation-request handlers,
+and a closed handoff lifecycle integrated with Conversation state.
 
-Tests: authenticated E2E, ownership races, continued patient messages, no-human
-timeout, stale AI suppression, stream cancellation and reconnect.
+Tests: trusted request construction, registry boundaries, policy revalidation,
+confirmation/approval scope and expiry, idempotent duplicates/concurrency,
+transaction rollback, outbox atomicity, execution/reconciliation,
+continuation, handoff lifecycle/roles/versioning, and security boundaries.
 
-Non-goals: voice, production booking, broad operator workspace.
+Non-goals: production persistence or migrations, real AI/provider SDK, real
+booking/messaging gateway, production outbox worker, web endpoint/streaming UI,
+operator dashboard, browser E2E harness, or voice.
 
-Acceptance: human ownership always suppresses autonomous AI sends/effects and
-browser input cannot establish tenant or capability.
+Acceptance: source gates and deterministic runtime tests are green; human
+ownership suppresses autonomous effects; uncertain outcomes cannot retry
+blindly. CTO approval closed REV-011F. The Release Candidate is Ready to Start
+under a separate execution order, but its implementation has not started.
+Its Execution Transcript is planned. AUD-005 remains open because no approved
+real browser/HTTP harness exists.
 
 ## REV-011G — Evaluation, Safety Hardening, and Hosted Verification
 

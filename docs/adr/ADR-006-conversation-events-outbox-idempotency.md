@@ -85,4 +85,7 @@ deterministic replay in memory. REV-011D is Complete with repository
 contracts, explicit transaction boundaries, deterministic idempotency,
 validated outbox state, immutable audit, persistence mappings, and an
 in-memory reference adapter. Migrations, production adapters, outbox workers,
-and external effects remain unimplemented.
+and external effects remain unimplemented. REV-011F composes these contracts in
+a deterministic reference Tool Runtime and proves atomic event/projection/
+snapshot/audit/idempotency/execution-record/outbox behavior without adding a
+migration, durable adapter, worker, or external delivery.

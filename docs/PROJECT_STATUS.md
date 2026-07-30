@@ -12,14 +12,18 @@ in `LAUNCH_READINESS_CHECKLIST.md`.
 
 ## Executive Summary
 
-REV-001 through REV-011E are complete. ADR-004 through ADR-006 are accepted.
+REV-001 through REV-011F are complete. ADR-004 through ADR-006 are accepted.
 REV-011C's deterministic authorization evaluator and closed, non-executing
 tool registry passed the complete local and hosted quality gate. REV-011D is
 Complete with provider-independent reliable-persistence contracts and an
 in-memory reference implementation. REV-011E is Complete with a
-provider-independent execution engine, structured-output validation, bounded
-retry/repair/fallback, reconciliation contracts, mandatory budgets, and
-data-only tool proposals. Reviva has a verified web,
+  provider-independent execution engine, structured-output validation, bounded
+  retry/repair/fallback, reconciliation contracts, mandatory budgets, and
+  data-only tool proposals. REV-011F is Complete with a provider-independent
+  Tool Runtime, closed handlers, transactional application coordination, and
+  a controlled human-handoff lifecycle. The Release Candidate is Ready to
+  Start, but its implementation has not started.
+  Reviva has a verified web,
 tenant, PostgreSQL, and authentication foundation, but it is not yet a
 conversational AI Employee or a production-ready public product.
 
@@ -33,8 +37,8 @@ milestones.
 - Repository: `C:\Users\hp\reviva-platform`
 - Branch: `main`
 - Application: `apps/web`
-- Internal packages: `@reviva/domain`, `@reviva/auth`, `@reviva/postgres`, and
-  `@reviva/conversation`, and `@reviva/execution`
+- Internal packages: `@reviva/domain`, `@reviva/auth`, `@reviva/postgres`,
+  `@reviva/conversation`, `@reviva/execution`, and `@reviva/runtime`
 - Database workspace: `supabase/`
 - Migration count: four
 - Hosted PostgreSQL integration tests: 16 passing
@@ -45,7 +49,8 @@ milestones.
 - REV-011C capability authorization and tool registry: Complete
 - REV-011D persistence contracts and reference adapter: Complete
 - REV-011E provider-independent execution engine: Complete
-- REV-011F web/API integration: Ready to Start; implementation has not started
+- REV-011F tool runtime, handoff, and application integration: Complete
+- Release Candidate: Ready to Start; implementation not started
 
 ## Completed Milestones
 
@@ -197,15 +202,37 @@ Design documents are maintained under `docs/conversation/`.
 - The source and hosted quality gates passed, CTO approval was recorded, and
   REV-011E is Complete.
 
+### REV-011F — Tool Runtime, Human Handoff, and Application Integration
+
+- `@reviva/runtime` now implements trusted immutable runtime requests, a closed
+  executable registry, authorization/confirmation/approval revalidation,
+  explicit transaction ownership, idempotent result replay, execution records,
+  deferred outbox effects, normalized continuation, and controlled handoff.
+- Deterministic reference persistence and booking handlers are test-only. No
+  production gateway, worker, database adapter, endpoint, UI, provider SDK,
+  network effect, environment variable, or migration was added.
+- The 65-test package suite and complete source and hosted gates are green.
+  CTO approval is recorded and REV-011F is Complete.
+- AUD-005 remains open because no installed/configured real browser/HTTP harness
+  exists; hosted Auth coverage is not relabeled as browser E2E.
+
+## Current Milestone
+
+### Release Candidate — Ready to Start
+
+- Release Candidate implementation has not started and requires a separate
+  execution order.
+- An Execution Transcript is planned for the Release Candidate.
+- Real AI providers, booking and messaging providers, and the production
+  outbox worker remain deferred.
+- AUD-005 remains open pending real browser/HTTP evidence.
+
 ## Future Milestones
 
-### REV-011F through REV-011G — Remaining conversational core implementation
+### REV-011G — Conversational evaluation and hardening
 
-- Text-first orchestration, deterministic state, safe behavior, evaluation,
-  traces, latency, cost, and quality metrics.
-- REV-011F through REV-011G remain unimplemented. Each phase requires its own
-  execution order and acceptance gate.
-- REV-011F is Ready to Start; its implementation has not started.
+- Adversarial evaluation, provider/tool sandbox verification, operational
+  metrics, budgets/rates, recovery exercises, and security review.
 
 ### REV-012 — Voice and character runtime
 
@@ -237,5 +264,7 @@ Design documents are maintained under `docs/conversation/`.
 
 ## Next Authorized Step
 
-REV-011F is Ready to Start under a dedicated execution order. REV-011E is
-Complete; REV-011F implementation has not started.
+Begin Release Candidate work only under a separate approved execution order.
+REV-011A through REV-011F are Complete, the Release Candidate is Ready to
+Start but has not started, its Execution Transcript is planned, and AUD-005
+remains open until independently proven closed.

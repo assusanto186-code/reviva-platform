@@ -156,12 +156,21 @@ Implementation status: Complete.
 
 ### REV-011F
 
-Implementation status: Ready to Start; implementation has not started.
+Implementation status: Implemented for CTO review; milestone In Progress.
 
-- Handoff races and ownership tests pass.
-- Authenticated route-level E2E proves current user/context, safe streaming,
-  cancellation, and error behavior.
-- AI does not send/execute after human ownership transfer.
+- The deterministic `@reviva/runtime` suite passes 65 tests covering trusted
+  requests, closed registries, authorization defense in depth,
+  confirmation/approval scope and expiry, exactly-once invocation,
+  idempotency replay/mismatch/processing, atomic commit/rollback,
+  event/projection/snapshot/audit/outbox coordination, execution and handler
+  outcome states, reconciliation, continuation, handoff lifecycle,
+  optimistic versions, roles/assignment, and controlled automation return.
+- Static boundary tests prove reverse dependencies remain absent and runtime
+  source contains no environment read, network/filesystem API, provider SDK,
+  dynamic code execution, or reference export through the primary API.
+- Real browser/HTTP Auth E2E is not claimed. AUD-005 remains open pending an
+  installed/configured browser harness that drives the actual Next.js
+  cookie/session, protected-route, logout, and post-logout lifecycle.
 
 ### REV-011G
 

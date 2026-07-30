@@ -6,7 +6,7 @@ Status: Approved Foundation
 
 Owner: Reviva Engineering
 
-Last reviewed: 2026-07-18
+Last reviewed: 2026-07-29
 
 ## Purpose
 
@@ -32,13 +32,13 @@ The approved first-customer stack is:
 
 ```text
 apps/web
-  -> application use cases
-    -> @reviva/domain
-    <- infrastructure adapters
-       - Supabase Auth adapter
-       - PostgreSQL repository adapter
-       - Supabase Storage adapter
-       - external lead/action adapters
+  -> composition and delivery adapters
+     -> @reviva/runtime
+        -> @reviva/execution
+        -> @reviva/conversation
+           -> @reviva/domain
+     -> @reviva/auth
+     -> @reviva/postgres
 ```
 
 The domain package has no dependency on Next.js, Vercel, Supabase, PostgreSQL
@@ -104,8 +104,19 @@ enforces schema, retry, repair, fallback, uncertainty, and usage policy, and
 returns typed outcomes or a data-only `ToolProposal`. Providers perform
 inference only and cannot authorize, mutate domain state, persist, execute
 tools, or select retry/fallback policy. The deterministic scripted adapters are
-test-only. Production persistence, real provider adapters, tool execution,
-endpoints, workers, and UI remain unimplemented.
+test-only.
+
+REV-011F implements the accepted `@reviva/runtime` boundary. It reconstructs
+trusted runtime requests, resolves handlers from a closed registry, revalidates
+authorization/confirmation/approval/handoff policy, coordinates one explicit
+idempotent transaction, applies Conversation commands, and atomically records
+events, projections, optional snapshots, safe audit, execution state, results,
+and deferred outbox work. Its handoff service synchronizes request, acceptance,
+and controlled return with the Conversation projection. Initial booking
+creation and cancellation-request handlers are deterministic deferred
+references only. No production persistence adapter, external worker/gateway,
+real tool delivery, endpoint, streaming UI, or operator interface is included.
+See `conversation/TOOL_RUNTIME.md`.
 
 ## Request Flow
 
@@ -118,6 +129,11 @@ endpoints, workers, and UI remain unimplemented.
 7. PostgreSQL RLS and constraints independently enforce tenant ownership.
 8. Business mutation and audit append commit together.
 9. Responses expose only approved data and opaque support identifiers.
+
+For AI-proposed tools, the Execution Engine emits only a data proposal. The
+Tool Runtime independently revalidates current authority and state, reserves
+idempotency, invokes a statically registered handler, and returns a typed
+continuation. Deferred outbox acceptance is never described as delivery.
 
 ## Data Classification
 
@@ -139,8 +155,9 @@ processing.
   context, restricted RLS-backed access, logout, and local session
   invalidation. It is not browser end-to-end coverage. REV-011A architecture and
   REV-011B pure domain implementation and REV-011C authorization are Complete.
-  REV-011D and REV-011E are Complete. REV-011F is Ready to Start but its
-  implementation has not started.
+  REV-011D, REV-011E, and REV-011F are Complete. The Release Candidate is
+  Ready to Start, but its implementation has not started. AUD-005 remains
+  open pending real browser/HTTP evidence.
 
 ## Decision Records
 
